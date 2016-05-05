@@ -1,2 +1,3 @@
 BASEDIR=/opt/klima
 @reboot $BASEDIR/bin/checkrecsensors.sh
+*/5 * * * * $BASEDIR/bin/fanctl.py

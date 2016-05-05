@@ -1,0 +1,8 @@
+#!/bin/sh
+rrdtool create data/fan.rrd --step 180 \
+DS:on:GAUGE:360:0:1 \
+RRA:AVERAGE:0.5:1:351360 \
+RRA:AVERAGE:0.5:480:3660 \
+RRA:MAX:0.5:480:3660 \
+RRA:AVERAGE:0.5:14880:240 \
+RRA:MAX:0.5:14880:240

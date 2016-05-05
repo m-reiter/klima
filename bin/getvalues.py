@@ -16,6 +16,7 @@ def getValues():
   now = int(time.time())
   kellerinfo = rrdtool.info(DATADIR+'/keller.rrd')
   ausseninfo = rrdtool.info(DATADIR+'/aussen.rrd')
+  faninfo = rrdtool.info(DATADIR+'/fan.rrd')
   if ( now - kellerinfo["last_update"] > 180 ):
     Tkeller = "U"
     RHkeller = "U"
@@ -36,6 +37,10 @@ def getValues():
     RHaussen = ausseninfo["ds[RH].last_ds"]
     DPaussen = ausseninfo["ds[DP].last_ds"]
     AHaussen = ausseninfo["ds[AH].last_ds"]
+  if ( now - faninfo["last_update"] > 180 ):
+    Fan = "U"
+  else:
+    Fan = faninfo["ds[on].last_ds"]
   return {
     'last_keller' : kellerinfo["last_update"],
     'Tkeller' : Tkeller,
@@ -46,7 +51,9 @@ def getValues():
     'Taussen' : Taussen,
     'RHaussen' : RHaussen,
     'DPaussen' : DPaussen,
-    'AHaussen' : AHaussen
+    'AHaussen' : AHaussen,
+    'last_fan' : faninfo["last_update"],
+    'Fan': Fan
   }
 
 if __name__ == '__main__':
