@@ -37,7 +37,7 @@ def getValues():
     RHaussen = ausseninfo["ds[RH].last_ds"]
     DPaussen = ausseninfo["ds[DP].last_ds"]
     AHaussen = ausseninfo["ds[AH].last_ds"]
-  if ( now - faninfo["last_update"] > 180 ):
+  if ( now - faninfo["last_update"] > 240 ):
     Fan = "U"
   else:
     Fan = faninfo["ds[on].last_ds"]

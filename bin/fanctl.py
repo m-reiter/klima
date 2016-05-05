@@ -39,6 +39,7 @@ Tkellermax = 22.0	# Maximaltemperatur Keller (zum Einschalten)
 Thysterese = 2.0
 
 def on(force=False):
+  logging.debug("on called.")
   if islocked() and not force:
     logging.debug("Asked to swich fan on, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
@@ -50,6 +51,7 @@ def on(force=False):
     rrdtool.update(DATADIR+'/fan.rrd','N:1')
 
 def off(force=False):
+  logging.debug("off called.")
   if islocked() and not force:
     logging.debug("Asked to swich fan off, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
@@ -76,7 +78,7 @@ def cron():
     if Fan == "0":
       margin = AHmargin
     else:
-      margin = margin - AHhysterese
+      margin = AHmargin - AHhysterese
     if AHaussen > AHkeller - margin:
       logging.debug("abs. hum. outside is larger, switching fan off")
       off()
@@ -88,7 +90,7 @@ def cron():
         if Fan == "0":
           margin = 0.0
         else:
-          margin = Tmargin
+          margin = Thysterese
         if Tkeller < Tkellermax + margin: 
           logging.debug("temp. outside is higher and cellar is not too warm, switching fan on.")
           on()
@@ -100,7 +102,7 @@ def cron():
           marginT = 0.0
           marginDP = DPmargin
         else:
-          marginT = Tmargin
+          marginT = Thysterese
           marginDP = DPmargin - DPhysterese
         if ( Tkeller > Tkellermin -marginT ) and ( Tkeller > DPkeller + marginDP ):
           logging.debug("temp. outside is lower but cellar is warm enough and well above dew point, switching fan on.")
