@@ -2,7 +2,7 @@
 #
 # Skript um zu Überprüfen, ob recsensors noch läuft, und es ggfs. neu zu starten
 
-BASEDIR="/home/reiter/klima"
+BASEDIR="/opt/klima"
 BINDIR="$BASEDIR/bin"
 LOGDIR="$BASEDIR/log"
 
