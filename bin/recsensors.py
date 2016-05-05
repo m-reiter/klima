@@ -58,8 +58,8 @@ def main():
       else:
         AHkeller = str(feuchte.AF(float(RHkeller),float(Tkeller)))
         DPkeller = str(feuchte.TD(float(RHkeller),float(Tkeller)))
-      logging.debug ("Aussen: T %s °C, RH %s %, AF %s g/m^3, TP %s °C" % ( Taussen,RHaussen,AHaussen,DPaussen )
-      logging.debug ("Keller: T %s °C, RH %s %, AF %s g/m^3, TP %s °C" % ( Tkeller,RHkeller,AHkeller,DPkeller )
+      logging.debug("Aussen: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Taussen,RHaussen,AHaussen,DPaussen ))
+      logging.debug("Keller: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Tkeller,RHkeller,AHkeller,DPkeller ))
       rrdtool.update(DATADIR+'/keller.rrd','N:'+Tkeller+':'+RHkeller+':'+AHkeller+':'+DPkeller)
       rrdtool.update(DATADIR+'/aussen.rrd','N:'+Taussen+':'+RHaussen+':'+AHaussen+':'+DPaussen)
 
