@@ -1,2 +1,2 @@
 BASEDIR=/opt/klima
-@reboot $BASEDIR/bin/checkrecsensors.py
+@reboot $BASEDIR/bin/checkrecsensors.sh
