@@ -3,7 +3,7 @@ export LC_ALL="de_DE.UTF-8"
 BASEDIR=/opt/klima
 GRAPHDIR=$BASEDIR/graphics
 DATADIR=$BASEDIR/data
-FILENAME=$GRAPHDIR/temp$1.png
+FILENAME=$GRAPHDIR/rh$1.png
 
 rrdtool graph $FILENAME -w 800 -h 400 -D -s "-$1" \
 -P \
