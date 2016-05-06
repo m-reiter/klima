@@ -12,13 +12,11 @@ import rrdtool
 import time
 import feuchte
 import logging
-import subprocess
 
 # directories
 BASEDIR='/opt/klima'
 LOGDIR=BASEDIR+'/log'
 DATADIR=BASEDIR+'/data'
-BINDIR=BASEDIR+'/bin'
 
 logging.basicConfig(filename=LOGDIR+'/recsensors.log',
                     format='%(asctime)s %(levelname)s: %(message)s',
@@ -64,7 +62,6 @@ def main():
       logging.debug("Keller: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Tkeller,RHkeller,AHkeller,DPkeller ))
       rrdtool.update(DATADIR+'/keller.rrd','N:'+Tkeller+':'+RHkeller+':'+AHkeller+':'+DPkeller)
       rrdtool.update(DATADIR+'/aussen.rrd','N:'+Taussen+':'+RHaussen+':'+AHaussen+':'+DPaussen)
-      subprocess.call(BINDIR+'/makegraphs.sh')
 
 if __name__ == '__main__':
   main()

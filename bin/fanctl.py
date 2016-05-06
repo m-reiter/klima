@@ -19,6 +19,7 @@ import os
 BASEDIR='/opt/klima'
 LOGDIR=BASEDIR+'/log'
 DATADIR=BASEDIR+'/data'
+BINDIR=BASEDIR+'/bin'
 LOCKFILE="/var/lock/fanctl.lock"
 
 logging.basicConfig(filename=LOGDIR+'/fanctl.log',
@@ -139,6 +140,7 @@ def cron():
         else:
           logging.debug("temp. outside is lower and cellar is too cold or too close to dew point, switching fan off.")
           off()
+  subprocess.call(BINDIR+'/makegraphs.sh')
 
 def lock(state,duration):
   if duration == "inf":

@@ -1,7 +1,7 @@
 #!/bin/sh
 BASEDIR=/opt/klima
 BINDIR=$BASEDIR/bin
-WEBDIR=$BASEDIR/web
+GRAPHDIR=$BASEDIR/graphics
 
 for d in 24h 1w
 do
@@ -9,6 +9,6 @@ do
   $BINDIR/graphRH.sh $d
 done
 
-$BINDIR/getvalues.py > $WEBDIR/sidebar_neu.html
-/usr/bin/install $WEBDIR/sidebar_neu.html $WEBDIR/sidebar.html
-/bin/rm $WEBDIR/sidebar_neu.html
+$BINDIR/getvalues.py > $GRAPHDIR/sidebar_neu.html
+/usr/bin/install $GRAPHDIR/sidebar_neu.html $GRAPHDIR/sidebar.html
+/bin/rm $GRAPHDIR/sidebar_neu.html
