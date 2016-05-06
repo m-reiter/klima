@@ -24,6 +24,7 @@ LOCKFILE="/var/lock/fanctl.lock"
 logging.basicConfig(filename=LOGDIR+'/fanctl.log',
                     format='%(asctime)s %(levelname)s: %(message)s',
                     level=logging.DEBUG)
+DRYRUN = False
 
 FANINPORT = "1"
 FANOUTPORT = "2"
@@ -44,8 +45,9 @@ def on(force=False):
     logging.debug("Asked to swich fan on, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
   else:
-    subprocess.call([SISPMCTL,"-o "+FANINPORT])
-    subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
+    if not DRYRUN:
+      subprocess.call([SISPMCTL,"-o "+FANINPORT])
+      subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
     if getvalues.getValues()['Fan'] == "0":
       logging.info("switched fan on.")
     rrdtool.update(DATADIR+'/fan.rrd','N:1')
@@ -56,11 +58,12 @@ def off(force=False):
     logging.debug("Asked to swich fan off, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
   else:
-    subprocess.call([SISPMCTL,"-f "+FANOUTPORT])
-    if force:
-      subprocess.call([SISPMCTL,"-f "+FANINPORT])
-    else:
-      subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter","2","--Ado","off"])
+    if not DRYRUN:
+      subprocess.call([SISPMCTL,"-f "+FANOUTPORT])
+      if force:
+        subprocess.call([SISPMCTL,"-f "+FANINPORT])
+      else:
+        subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter","2","--Ado","off"])
     if getvalues.getValues()['Fan'] == "1":
       logging.info("switched fan off.")
     rrdtool.update(DATADIR+'/fan.rrd','N:0')
@@ -85,6 +88,7 @@ def cron():
     else:
       logging.debug("abs. hum. outside is smaller, considering further...")
       Tkeller = float(currentState["Tkeller"])
+      DPkeller = float(currentState["DPkeller"])
       Taussen = float(currentState["Taussen"])
       if Taussen > Tkeller:
         if Fan == "0":
