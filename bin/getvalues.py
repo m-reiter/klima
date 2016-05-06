@@ -135,8 +135,8 @@ if __name__ == '__main__':
 </table>
 <hr>
 <center>
-<a href="24h.html" target="_top">24 Stunden</a><br>
-<a href="1w.html" target="_top">1 Woche</a>
+<a href="../klima/24h.html" target="_top">24 Stunden</a><br>
+<a href="../klima/1w.html" target="_top">1 Woche</a>
 </center>\
 ''' % ( time.strftime("%-d.%-m.%Y, %-H:%M"),
         Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, Fan )
