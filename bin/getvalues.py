@@ -57,4 +57,83 @@ def getValues():
   }
 
 if __name__ == '__main__':
-  print getValues()
+  values = getValues()
+  if values['Tkeller'] == 'U':
+    Tkeller = '--'
+    RHkeller = '--'
+    DPkeller = '--'
+    AHkeller = '--'
+  else:
+    Tkeller = "%.1f&deg;C" % float(values['Tkeller'])
+    if float(values['RHkeller']) > 60.0:
+      color = "red"
+    else:
+      color = "green"
+    RHkeller = '<font color="%s">%.0f%%</font>' % ( color, float(values['RHkeller']) )
+    DPkeller = "%.1f&deg;C" % float(values['DPkeller'])
+    AHkeller = "%.1f g/m<sup><small><small>3</small></small></sup>" % float(values['AHkeller'])
+  if values['Taussen'] == 'U':
+    Taussen = '--'
+    RHaussen = '--'
+    DPaussen = '--'
+    AHaussen = '--'
+  else:
+    Taussen = "%.1f&deg;C" % float(values['Taussen'])
+    RHaussen = '%.0f%%' % float(values['RHaussen'])
+    DPaussen = "%.1f&deg;C" % float(values['DPaussen'])
+    AHaussen = "%.1f g/m<sup><small><small>3</small></small></sup>" % float(values['AHaussen'])
+  if values['Fan'] == 'U':
+    Fan = '--'
+  else:
+    if float(values['Fan']) > .99:
+      Fan = '<font color="green">AN</font>'
+    else:
+      Fan = '<font color="red">AUS</font>'
+  print '''\
+<link rel="stylesheet" href="sidebar.css">
+<center>
+<h3>Aktuelle Werte</h3></center>
+<table align="center" textalign="bottom" width="100%%">
+  <tr>
+    <td>Keller:</td>
+    <td></td>
+    <td align="right">%s</td>
+    <td></td>
+    <td>RF</td>
+    <td align="right">%s</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>TP</td>
+    <td align="right">%s</td>
+    <td></td>
+    <td>AF</td>
+    <td align="right">%s</td>
+  </tr>
+  <tr>
+    <td>Aussen:</td>
+    <td></td>
+    <td align="right">%s</td>
+    <td></td>
+    <td>RF</td>
+    <td align="right">%s</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>TP</td>
+    <td align="right">%s</td>
+    <td></td>
+    <td>AF</td>
+    <td align="right">%s</td>
+  </tr>
+  <tr>
+    <td>L&uuml;fter:</td>
+    <td colspan="5" align="center">%s</td>
+  </tr>
+</table>
+<hr>
+<center>
+<a href="24h.html" target="_top">24 Stunden</a><br>
+<a href="1w.html" target="_top">1 Woche</a>
+</center>\
+''' % ( Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, Fan )
