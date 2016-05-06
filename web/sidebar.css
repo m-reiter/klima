@@ -1,5 +1,10 @@
+h3 {
+  margin-bottom: 0.1em;
+}
+
 table {
   vertical-align: baseline; 
+  margin-top: 1em;
 }
 
 #zahl {
