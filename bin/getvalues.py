@@ -93,6 +93,7 @@ if __name__ == '__main__':
 <link rel="stylesheet" href="sidebar.css">
 <center>
 <h3>Aktuelle Werte</h3></center>
+Zuletzt aktualisiert: %s
 <table align="center" textalign="bottom" width="100%%">
   <tr>
     <td>Keller:</td>
@@ -136,4 +137,5 @@ if __name__ == '__main__':
 <a href="24h.html" target="_top">24 Stunden</a><br>
 <a href="1w.html" target="_top">1 Woche</a>
 </center>\
-''' % ( Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, Fan )
+''' % ( time.strftime("%-d.%-m.%Y, %-H:%M"),
+        Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, Fan )
