@@ -92,8 +92,9 @@ if __name__ == '__main__':
   print '''\
 <link rel="stylesheet" href="sidebar.css">
 <center>
-<h3>Aktuelle Werte</h3></center>
-Zuletzt aktualisiert: %s
+<h3>Aktuelle Werte</h3>
+<small>Zuletzt aktualisiert: %s</small>
+</center>
 <table align="center" textalign="bottom" width="100%%">
   <tr>
     <td>Keller:</td>
