@@ -1,0 +1,13 @@
+table {
+  vertical-align: baseline; 
+}
+
+#zahl {
+  align: right;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 150%;
+}
