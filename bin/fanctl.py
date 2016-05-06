@@ -39,6 +39,31 @@ Tkellermin = 10.0	# Mindesttemperatur Keller (zum Einschalten)
 Tkellermax = 22.0	# Maximaltemperatur Keller (zum Einschalten)
 Thysterese = 2.0
 
+def usage():
+  print """
+Usage: fanctl.py <command> [<options>]
+
+Available commands are:
+
+   cron
+
+      Checks current conditions and turns fan on or off automatically unless locked.
+
+   on,off
+
+      Turns fan on or off unless locked.
+
+   lock <on|1|off|0> <duration>
+
+      Turns fan on or off and locks fan state for <duration> minutes or indefinitely
+      if <duration> is given as "inf".
+
+   unlock
+
+      Removes a previous lock. Fan will be automatically controlled by cron job.
+"""
+  return 2
+
 def on(force=False):
   logging.debug("on called.")
   if islocked() and not force:
@@ -116,7 +141,7 @@ def cron():
           off()
 
 def lock(state,duration):
-  if duration is "inf":
+  if duration == "inf":
     unlocktime = "inf"
   else:
     try:
@@ -128,6 +153,7 @@ def lock(state,duration):
   logging.info("Locking fan to %s for %s minutes" % ( state, duration ))
   f = open(LOCKFILE,'w')
   f.write(str(unlocktime))
+  f.close()
   currentState = getvalues.getValues()['Fan']
   if str(state) == currentState:
     logging.debug("lock: Fan is already in state %s, not switching" % state)
@@ -149,6 +175,8 @@ def islocked():
   if os.path.isfile(LOCKFILE):
     f = open(LOCKFILE,'r')
     unlocktime = f.readline()
+    f.close()
+    logging.debug("islocked read unlocktime %s" % unlocktime)
     if ( unlocktime == "inf" ) or ( int(unlocktime) > int(time.time()) ):
       return True
     else:
@@ -159,7 +187,33 @@ def main(argv=None):
   if argv is None:
     argv = sys.argv
   logging.debug("fanctl called with args %s" % argv[1:])
-  cron()
+  if len(argv) == 1:
+    return usage()
+  if argv[1] == "cron" and len(argv) == 2:
+    cron()
+  elif argv[1] == "on" and len(argv) == 2:
+    on()
+  elif argv[1] == "off" and len(argv) == 2:
+    off()
+  elif argv[1] == "lock" and len(argv) == 4:
+    state = argv[2]
+    if state == "on" or state == "1":
+      state = 1
+    elif state == "off" or state == "0":
+      state = 0
+    else:
+      return usage() 
+    duration = argv[3]
+    if not duration == "inf":
+      try:
+        int(duration)
+      except ValueError:
+        return usage()
+    lock(state,duration)
+  elif argv[1] == "unlock" and len(argv) == 2:
+    unlock()
+  else:
+    return usage()
 
 if __name__ == "__main__":
   sys.exit(main())
