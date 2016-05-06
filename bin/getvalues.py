@@ -90,7 +90,7 @@ if __name__ == '__main__':
     else:
       Fan = '<font color="red">AUS</font>'
   print '''\
-<link rel="stylesheet" href="../web/sidebar.css">
+<link rel="stylesheet" href="../klima/sidebar.css">
 <center>
 <h3>Aktuelle Werte</h3>
 <small>Zuletzt aktualisiert: %s</small>
