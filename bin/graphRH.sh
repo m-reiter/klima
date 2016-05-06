@@ -5,7 +5,7 @@ GRAPHDIR=$BASEDIR/graphics
 DATADIR=$BASEDIR/data
 FILENAME=$GRAPHDIR/rh$1.png
 
-rrdtool graph $FILENAME -w 800 -h 400 -D -s "-$1" \
+rrdtool graph $FILENAME -w 800 -h 300 -D -s "-$1" \
 -P \
 --title "Feuchte" \
 --vertical-label "Rel. Feuchte [%]" \

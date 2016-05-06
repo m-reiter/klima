@@ -5,7 +5,7 @@ GRAPHDIR=$BASEDIR/graphics
 DATADIR=$BASEDIR/data
 FILENAME=$GRAPHDIR/temp$1.png
 
-rrdtool graph $FILENAME -w 800 -h 400 -D -l 0 -u 30 -s "-$1" \
+rrdtool graph $FILENAME -w 800 -h 300 -D -l 0 -u 30 -s "-$1" \
 -P \
 --title "Temperatur" \
 --vertical-label "T [°C]" \
