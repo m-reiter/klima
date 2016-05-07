@@ -12,3 +12,5 @@ done
 $BINDIR/getvalues.py > $GRAPHDIR/sidebar_neu.html
 /usr/bin/install $GRAPHDIR/sidebar_neu.html $GRAPHDIR/sidebar.html
 /bin/rm $GRAPHDIR/sidebar_neu.html
+
+$BINDIR/graphSmall.sh
