@@ -1,0 +1,6 @@
+BASEDIR="/opt/klima"
+BINDIR="$BASEDIR/bin"
+xset -dpms
+xset s noblank
+xset s off
+exec $BINDIR/controller.py
