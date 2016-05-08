@@ -20,11 +20,8 @@ BASEDIR='/opt/klima'
 LOGDIR=BASEDIR+'/log'
 DATADIR=BASEDIR+'/data'
 BINDIR=BASEDIR+'/bin'
-LOCKFILE="/var/lock/fanctl.lock"
+LOCKFILE=BASEDIR+'/fanctl.lock'
 
-logging.basicConfig(filename=LOGDIR+'/fanctl.log',
-                    format='%(asctime)s %(levelname)s: %(message)s',
-                    level=logging.DEBUG)
 DRYRUN = False
 
 FANINPORT = "1"
@@ -179,8 +176,10 @@ def islocked():
     unlocktime = f.readline()
     f.close()
     logging.debug("islocked read unlocktime %s" % unlocktime)
-    if ( unlocktime == "inf" ) or ( int(unlocktime) > int(time.time()) ):
-      return True
+    if ( unlocktime == "inf" ):
+      return "inf"
+    elif ( int(unlocktime) > int(time.time()) ):
+      return ( int(unlocktime) - int(time.time()) )
     else:
       unlock()
   return False
@@ -218,4 +217,7 @@ def main(argv=None):
     return usage()
 
 if __name__ == "__main__":
+  logging.basicConfig(filename=LOGDIR+'/fanctl.log',
+                      format='%(asctime)s %(levelname)s: %(message)s',
+                      level=logging.DEBUG)
   sys.exit(main())
