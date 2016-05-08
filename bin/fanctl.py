@@ -157,7 +157,7 @@ def lock(state,duration):
   if str(state) == currentState:
     logging.debug("lock: Fan is already in state %s, not switching" % state)
   else:
-    logging.debug("lock: Switching fan to state %s")
+    logging.debug("lock: Switching fan to state %s" % state)
     if state == 0:
       off(force=True)
     elif state == 1:
