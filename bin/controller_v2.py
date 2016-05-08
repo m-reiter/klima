@@ -42,14 +42,12 @@ class LockDialog(Toplevel):
 
     def doit(self):
         if self.onoff == "on":
-#            fanctl.lock(1,"inf)
-            print "Lüfter eingeschaltet"
+            fanctl.lock(1,"inf)
         else:
-#            fanctl.lock(0,"inf")
-            print "Lüfter ausgeschaltet"
+            fanctl.lock(0,"inf")
 
-#        self.LockLabel.configure(background="red")
-#        self.LockLine.set("gesperrt")
+        self.LockLabel.configure(background="red")
+        self.LockLine.set("gesperrt")
             
         self.destroy()
 
@@ -100,11 +98,11 @@ class Controller:
         Label(master, textvariable=self.AHaussen, font="Roboto 25 bold", background="white").place(x=170,y=315,width=150,height=45)
         self.FanLabel = Label(master, textvariable=self.FanLine, font="Roboto 18", background="white")
         self.FanLabel.place(x=0,y=360,height=40,width=140)
-        self.LockLabel = Label(master, textvariable=self.LockLine, font="Roboto 18", background="orange", foreground="white")
+        self.LockLabel = Label(master, textvariable=self.LockLine, font="Roboto 18", background="yellow", foreground="white")
         self.LockLabel.place(x=140,y=360,height=40,width=180)
 
         Button(master, text="An", font="Roboto 30 bold", foreground="white", background="green", command=self.lockOn).place(x=5,y=405,width=100,height=70)
-        Button(master, text="Auto", font="Roboto 30 bold", foreground="white", background="orange", command=self.unlock).place(x=110,y=405,width=100,height=70)
+        Button(master, text="Auto", font="Roboto 30 bold", foreground="white", background="yellow", activebackground="yellow", command=self.unlock).place(x=110,y=405,width=100,height=70)
         Button(master, text="Aus", font="Roboto 30 bold", foreground="white", background="red", command=self.lockOff).place(x=215,y=405,width=100,height=70)
 
         self.updateValues()
@@ -120,7 +118,7 @@ class Controller:
             tl = self.tl = Toplevel(self.root,background="white",bd=3)
             tl.overrideredirect(1)
             tl.geometry("300x200+10+140")
-            Label(tl,text="Auto", width=300, background="orange", foreground="white", font="Roboto 12").pack()
+            Label(tl,text="Auto", width=300, background="yellow", foreground="white", font="Roboto 12").pack()
             Label(tl,text="Lüfter entsperren?", width=300, height=3, background="white", font="Roboto 24 bold").pack()
             Button(tl,text="Abbrechen", width=9, background="red", foreground="white", font="Roboto 18", command=tl.destroy).pack(side=LEFT)
             Button(tl,text="OK", width=9, background="green", foreground="white", font="Roboto 18", command=self.dounlock).pack(side=BOTTOM)
@@ -128,9 +126,9 @@ class Controller:
             self.root.wait_window(tl)
 
     def dounlock(self):
-#        fanctl.unlock()
-#        self.LockLabel.configure(background="orange")
-#        self.LockLine.set("Auto")
+        fanctl.unlock()
+        self.LockLabel.configure(background="yellow")
+        self.LockLine.set("Auto")
 
         self.tl.destroy()
 
@@ -223,7 +221,7 @@ class Controller:
                     n = islocked / 60
                     self.LockLine.set("% i Minuten" % n)
         else:
-            self.LockLabel.configure(background="orange")
+            self.LockLabel.configure(background="yellow")
             self.LockLine.set("Auto")
 
         root.after(60000,self.updateValues)
