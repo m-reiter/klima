@@ -146,6 +146,12 @@ if __name__ == '__main__':
 <li><a href="../klima/1w.html" target="_top">1 Woche</a></li>
 <li><a href="../klima/1M.html" target="_top">1 Monat</a></li>
 </ul>
+<h3>Tagesdurchschnitt</h3>
+<ul>
+<li><a href="../klima/1Mavg.html" target="_top">1 Monat</a></li>
+<li><a href="../klima/3Mavg.html" target="_top">3 Monate</a></li>
+<li><a href="../klima/6Mavg.html" target="_top">6 Monate</a></li>
+</ul>
 </center>\
 ''' % ( time.strftime("%-d.%-m.%Y, %-H:%M"),
         Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, color, textcolor, Fan )
