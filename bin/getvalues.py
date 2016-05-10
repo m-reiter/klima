@@ -71,7 +71,7 @@ if __name__ == '__main__':
       color = "green"
     RHkeller = '<font color="%s">%.0f%%</font>' % ( color, float(values['RHkeller']) )
     DPkeller = "%.1f&deg;C" % float(values['DPkeller'])
-    AHkeller = "%.1f g/m<sup><small><small>3</small></small></sup>" % float(values['AHkeller'])
+    AHkeller = "%.1f g/m&sup3;" % float(values['AHkeller'])
   if values['Taussen'] == 'U':
     Taussen = '--'
     RHaussen = '--'
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     Taussen = "%.1f&deg;C" % float(values['Taussen'])
     RHaussen = '%.0f%%' % float(values['RHaussen'])
     DPaussen = "%.1f&deg;C" % float(values['DPaussen'])
-    AHaussen = "%.1f g/m<sup><small><small>3</small></small></sup>" % float(values['AHaussen'])
+    AHaussen = "%.1f g/m&sup3;" % float(values['AHaussen'])
   if values['Fan'] == 'U':
     color = "white"
     textcolor = "black"
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     <td align="right">%s</td>
     <td></td>
     <td>RF</td>
-    <td align="right">%s</td>
+    <td align="center">%s</td>
   </tr>
   <tr>
     <td></td>
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     <td align="right">%s</td>
     <td></td>
     <td>AF</td>
-    <td align="right">%s</td>
+    <td align="center">%s</td>
   </tr>
   <tr>
     <td>Aussen:</td>
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     <td align="right">%s</td>
     <td></td>
     <td>RF</td>
-    <td align="right">%s</td>
+    <td align="center">%s</td>
   </tr>
   <tr>
     <td></td>
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     <td align="right">%s</td>
     <td></td>
     <td>AF</td>
-    <td align="right">%s</td>
+    <td align="center">%s</td>
   </tr>
   <tr>
     <td>L&uuml;fter:</td>
