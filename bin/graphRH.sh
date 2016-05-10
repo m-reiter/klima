@@ -17,9 +17,9 @@ DEF:keller=$DATADIR/keller.rrd:RH:AVERAGE \
 DEF:AHaussen=$DATADIR/aussen.rrd:AH:AVERAGE \
 DEF:AHkeller=$DATADIR/keller.rrd:AH:AVERAGE \
 DEF:on=$DATADIR/fan.rrd:on:AVERAGE \
-CDEF:Fan=on,.9,GT,keller,0,IF \
 CDEF:AHPaussen=AHaussen,.2,/ \
 CDEF:AHPkeller=AHkeller,.2,/ \
+CDEF:Fan=on,.9,GT,AHPkeller,0,IF \
 AREA:Fan#00ff0080: \
 LINE2:aussen#000000:"Rel. Feuchte aussen" \
 LINE2:keller#ff0000:"Rel. Feuchte Keller" \
