@@ -83,12 +83,18 @@ if __name__ == '__main__':
     DPaussen = "%.1f&deg;C" % float(values['DPaussen'])
     AHaussen = "%.1f g/m<sup><small><small>3</small></small></sup>" % float(values['AHaussen'])
   if values['Fan'] == 'U':
+    color = "white"
+    textcolor = "black"
     Fan = '--'
   else:
     if float(values['Fan']) > .99:
-      Fan = '<font color="green">AN</font>'
+      color="green"
+      textcolor = "white"
+      Fan = 'AN'
     else:
-      Fan = '<font color="red">AUS</font>'
+      color="red"
+      textcolor = "white"
+      Fan = 'AUS'
   print '''\
 <link rel="stylesheet" href="../klima/sidebar.css">
 <center>
@@ -130,13 +136,16 @@ if __name__ == '__main__':
   </tr>
   <tr>
     <td>L&uuml;fter:</td>
-    <td colspan="5" align="center">%s</td>
+    <td colspan="5" , bgcolor="%s" align="center"><font color="%s">%s</font></td>
   </tr>
 </table>
 <hr>
-<center>
-<a href="../klima/24h.html" target="_top">24 Stunden</a><br>
-<a href="../klima/1w.html" target="_top">1 Woche</a>
+<h3>Verlauf</h3>
+<ul>
+<li><a href="../klima/24h.html" target="_top">24 Stunden</a><br></li>
+<li><a href="../klima/1w.html" target="_top">1 Woche</a></li>
+<li><a href="../klima/1M.html" target="_top">1 Monat</a></li>
+</ul>
 </center>\
 ''' % ( time.strftime("%-d.%-m.%Y, %-H:%M"),
-        Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, Fan )
+        Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, color, textcolor, Fan )

@@ -3,7 +3,7 @@ BASEDIR=/opt/klima
 BINDIR=$BASEDIR/bin
 GRAPHDIR=$BASEDIR/graphics
 
-for d in 24h 1w
+for d in 24h 1w 1M
 do
   $BINDIR/graphTemp.sh $d
   $BINDIR/graphRH.sh $d
