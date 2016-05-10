@@ -29,8 +29,8 @@ FANOUTPORT = "2"
 SISPMCTL="/usr/bin/sispmctl"
 
 # Parameter
-AHmargin = 1.0		# Mindestdifferenz absolute Feuchte (zum Einschalten)
-AHhysterese = 0.5       # Hysterese hierzu
+AHmargin = 2.0		# Mindestdifferenz absolute Feuchte (zum Einschalten)
+AHhysterese = 1.0       # Hysterese hierzu
 DPmargin = 2.0		# Mindestdifferenz Taupunkt (zum Einschalten)
 DPhysterese = 1.0       # Hysterese hierzu
 Tkellermin = 10.0	# Mindesttemperatur Keller (zum Einschalten)
