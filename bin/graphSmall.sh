@@ -19,5 +19,5 @@ DEF:AHaussen=$DATADIR/aussen.rrd:AH:AVERAGE \
 DEF:on=$DATADIR/fan.rrd:on:AVERAGE \
 CDEF:Fan=on,.9,GT,AHkeller,0,IF \
 AREA:Fan#00ff0080: \
-LINE2:AHkeller#ff00ff: \
-LINE2:AHaussen#0000ff:
+LINE2:AHaussen#0000ff: \
+LINE2:AHkeller#ff00ff:
