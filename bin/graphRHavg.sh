@@ -5,7 +5,7 @@ GRAPHDIR=$BASEDIR/graphics
 DATADIR=$BASEDIR/data
 FILENAME=$GRAPHDIR/rh$1_$2.png
 
-rrdtool graph $FILENAME -w 800 -h 300 -D -s "-$1" -S $2 \
+rrdtool graph $FILENAME -w 800 -h 300 -D -l 0 -s "-$1" -S $2 \
 -P \
 --slope-mode \
 --title "Feuchte" \
