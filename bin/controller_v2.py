@@ -11,6 +11,7 @@ from Tkinter import *
 import tkMessageBox
 import getvalues
 import fanctl
+import time
 
 class LockDialog(Toplevel):
 
@@ -65,6 +66,7 @@ class Controller:
         self.AHaussen = StringVar()
         self.FanLine = StringVar()
         self.LockLine = StringVar()
+        self.TimeLine = StringVar()
         
         self.root = master
 
@@ -76,6 +78,7 @@ class Controller:
             master.attributes("-fullscreen",True)
 
         Label(master, text="Keller", font="Roboto 16", background="white", anchor=W).place(x=0,y=0,height=20)
+        Label(master, textvariable=self.TimeLine, font="Roboto 10", background="white", anchor=E).place(x=320,y=-1,anchor=NE,height=16)
         Label(master, textvariable=self.Tkeller, font="Roboto 25 bold", background="white",anchor=E).place(x=140,y=20,anchor=NE,height=40)
         Label(master, text="RF", font="Roboto 12 bold", background="white").place(x=148,y=22)
         self.RHkellerLabel = Label(master, textvariable=self.RHkeller, font="Roboto 25 bold", background="white")
@@ -105,7 +108,7 @@ class Controller:
         Button(master, text="Auto", font="Roboto 30 bold", foreground="white", background="blue", activebackground="blue", command=self.unlock).place(x=110,y=405,width=100,height=70)
         Button(master, text="Aus", font="Roboto 30 bold", foreground="white", background="red", command=self.lockOff).place(x=215,y=405,width=100,height=70)
 
-        self.updateValues()
+        self.updateLoop()
 
     def lockOn(self):
         LockDialog(self.root)
@@ -224,7 +227,11 @@ class Controller:
             self.LockLabel.configure(background="blue")
             self.LockLine.set("Auto")
 
-        root.after(60000,self.updateValues)
+        self.TimeLine.set(time.strftime("%-d.%-m.%Y %H:%M"))
+
+    def updateLoop(self):
+        self.updateValues()
+        root.after(60000,self.updateLoop)
 
 root = Tk()
 
