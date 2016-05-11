@@ -12,6 +12,9 @@ import tkMessageBox
 import getvalues
 import fanctl
 import time
+import locale
+
+locale.setlocale(locale.LC_ALL,'de_DE')
 
 class LockDialog(Toplevel):
 
@@ -227,7 +230,7 @@ class Controller:
             self.LockLabel.configure(background="blue")
             self.LockLine.set("Auto")
 
-        self.TimeLine.set(time.strftime("%-d.%-m.%Y %H:%M"))
+        self.TimeLine.set(time.strftime("%a %-d.%-m.%Y %H:%M"))
 
     def updateLoop(self):
         self.updateValues()
