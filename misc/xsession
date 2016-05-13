@@ -3,4 +3,4 @@ BINDIR="$BASEDIR/bin"
 xset -dpms
 xset s noblank
 xset s off
-exec $BINDIR/controller.py
+exec $BINDIR/controller_v3.py
