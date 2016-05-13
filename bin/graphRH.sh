@@ -16,6 +16,7 @@ DEF:aussen=$DATADIR/aussen.rrd:RH:AVERAGE \
 DEF:keller=$DATADIR/keller.rrd:RH:AVERAGE \
 DEF:AHaussen=$DATADIR/aussen.rrd:AH:AVERAGE \
 DEF:AHkeller=$DATADIR/keller.rrd:AH:AVERAGE \
+DEF:DWD=$GRAPHDIR/dwd.rrd:RH:AVERAGE \
 DEF:on=$DATADIR/fan.rrd:on:AVERAGE \
 CDEF:AHPaussen=AHaussen,.2,/ \
 CDEF:AHPkeller=AHkeller,.2,/ \
@@ -25,4 +26,5 @@ LINE2:aussen#000000:"Rel. Feuchte aussen" \
 LINE2:keller#ff0000:"Rel. Feuchte Keller" \
 LINE2:AHPaussen#0000ff:"Abs. Feuchte aussen" \
 LINE2:AHPkeller#ff00ff:"Abs. Feuchte Keller" \
-TICK:Fan#00ff0080:0.0:"Lüfter an"
+TICK:Fan#00ff0080:0.0:"Lüfter an" \
+LINE2:DWD#80808080:"DWD Westend"
