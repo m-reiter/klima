@@ -41,30 +41,66 @@ class LockDialog(Toplevel):
             action = "ausschalten"
             col = "red"
 
-        Label(self,text=title, width=300, background=col, foreground="white", font="Roboto 12").place(x=0,y=0,width=300,height=20)
+        Label(self,text=title, background=col, foreground="white", font="Roboto 12").place(x=0,y=0,width=300,height=20)
         Label(self,text="Lüfter %s für?" % action, background="white", font="Roboto 20").place(x=0,y=20,width=300,height=40)
         self.entry = Entry(self,font="Roboto 24",textvariable=self.input)
         self.entry.place(x=5,y=60,width=172,height=54)
         self.entry.configure(inserton=0,selectforeground="white",selectbackground="black")
         self.entry.bind("<1>",self.noop)
-        Button(self,text="1",background="white",font="Roboto 24 bold",command=lambda:self.type("1")).place(x=5,y=119,width=54,height=54)
-        Button(self,text="2",background="white",font="Roboto 24 bold",command=lambda:self.type("2")).place(x=64,y=119,width=54,height=54)
-        Button(self,text="3",background="white",font="Roboto 24 bold",command=lambda:self.type("3")).place(x=123,y=119,width=54,height=54)
-        Button(self,text="4",background="white",font="Roboto 24 bold",command=lambda:self.type("4")).place(x=5,y=178,width=54,height=54)
-        Button(self,text="5",background="white",font="Roboto 24 bold",command=lambda:self.type("5")).place(x=64,y=178,width=54,height=54)
-        Button(self,text="6",background="white",font="Roboto 24 bold",command=lambda:self.type("6")).place(x=123,y=178,width=54,height=54)
-        Button(self,text="7",background="white",font="Roboto 24 bold",command=lambda:self.type("7")).place(x=5,y=237,width=54,height=54)
-        Button(self,text="8",background="white",font="Roboto 24 bold",command=lambda:self.type("8")).place(x=64,y=237,width=54,height=54)
-        Button(self,text="9",background="white",font="Roboto 24 bold",command=lambda:self.type("9")).place(x=123,y=237,width=54,height=54)
-        Button(self,text="0",background="white",font="Roboto 24 bold",command=lambda:self.type("0")).place(x=5,y=296,width=54,height=54)
-        Button(self,text="C",background="red",foreground="white",font="Roboto 24 bold",command=self.reset).place(x=64,y=296 ,width=113,height=54)
-        Radiobutton(self,text="Minuten",background="blue",foreground="white",selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=1).place(x=182,y=60,width=113,height=54)
-        Radiobutton(self,text="Stunden",background="blue",foreground="white",selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=60).place(x=182,y=119,width=113,height=54)
-        Radiobutton(self,text="Tage",background="blue",foreground="white",selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=1440).place(x=182,y=178,width=113,height=54)
-        Radiobutton(self,text="Wochen",background="blue",foreground="white",selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=10080).place(x=182,y=237,width=113,height=54)
-        Radiobutton(self,text="∞",background="blue",foreground="white",selectcolor="lightblue",font="Roboto 18",command=self.setInf,indicatoron=0,variable=self.multiplier,value=-1).place(x=182,y=296,width=113,height=54)
-        Button(self,text="Abbrechen", width=9, background="red", foreground="white", font="Roboto", command=self.destroy).place(x=0,y=364,width=150,height=36)
-        Button(self,text="OK", width=9, background="green", foreground="white", font="Roboto 18", command=self.doit).place(x=150,y=364,width=150,height=36)
+        Button(self,text="1",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("1")).place(x=5,y=119,width=54,height=54)
+        Button(self,text="2",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("2")).place(x=64,y=119,width=54,height=54)
+        Button(self,text="3",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("3")).place(x=123,y=119,width=54,height=54)
+        Button(self,text="4",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("4")).place(x=5,y=178,width=54,height=54)
+        Button(self,text="5",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("5")).place(x=64,y=178,width=54,height=54)
+        Button(self,text="6",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("6")).place(x=123,y=178,width=54,height=54)
+        Button(self,text="7",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("7")).place(x=5,y=237,width=54,height=54)
+        Button(self,text="8",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("8")).place(x=64,y=237,width=54,height=54)
+        Button(self,text="9",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("9")).place(x=123,y=237,width=54,height=54)
+        Button(self,text="0",bg="white",
+               activebackground="white",
+               font="Roboto 24 bold",command=lambda:self.type("0")).place(x=5,y=296,width=54,height=54)
+        Button(self,text="C",bg="red",foreground="white",
+               activebackground="red",activeforeground="white",
+               font="Roboto 24 bold",command=self.reset).place(x=64,y=296 ,width=113,height=54)
+        Radiobutton(self,text="Minuten",bg="blue",fg="white",
+                    activebackground="blue",activeforeground="white",
+                    selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=1).place(x=182,y=60,width=113,height=54)
+        Radiobutton(self,text="Stunden",bg="blue",fg="white",
+                    activebackground="blue",activeforeground="white",
+                    selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=60).place(x=182,y=119,width=113,height=54)
+        Radiobutton(self,text="Tage",bg="blue",fg="white",
+                    activebackground="blue",activeforeground="white",
+                    selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=1440).place(x=182,y=178,width=113,height=54)
+        Radiobutton(self,text="Wochen",bg="blue",fg="white",
+                    activebackground="blue",activeforeground="white",
+                    selectcolor="lightblue",font="Roboto 18",command=self.checkInf,indicatoron=0,variable=self.multiplier,value=10080).place(x=182,y=237,width=113,height=54)
+        Radiobutton(self,text="∞",bg="blue",fg="white",
+                    activebackground="blue",activeforeground="white",
+                    selectcolor="lightblue",font="Roboto 18",command=self.setInf,indicatoron=0,variable=self.multiplier,value=-1).place(x=182,y=296,width=113,height=54)
+        Button(self,text="Abbrechen", bg="red", fg="white",
+               activebackground="red", activeforeground="white",
+               font="Roboto 16", command=self.destroy).place(x=0,y=364,width=150,height=36)
+        Button(self,text="OK", bg="green", fg="white",
+               activebackground="green", activeforeground="white",
+               font="Roboto 16", command=self.doit).place(x=150,y=364,width=150,height=36)
 
         self.reset()
 
@@ -168,9 +204,18 @@ class Controller:
         self.LockLabel = Label(master, textvariable=self.LockLine, font="Roboto 18", background="blue", foreground="white")
         self.LockLabel.place(x=141,y=360,height=40,width=178)
 
-        Button(master, text="An", font="Roboto 30 bold", foreground="white", background="green", command=self.lockOn).place(x=5,y=405,width=100,height=70)
-        Button(master, text="Auto", font="Roboto 30 bold", foreground="white", background="blue", activebackground="blue", command=self.unlock).place(x=110,y=405,width=100,height=70)
-        Button(master, text="Aus", font="Roboto 30 bold", foreground="white", background="red", command=self.lockOff).place(x=215,y=405,width=100,height=70)
+        Button(master, text="An", font="Roboto 30 bold",
+               fg="white", bg="green",
+               activeforeground="white", activebackground="green",
+               command=self.lockOn).place(x=5,y=405,width=100,height=70)
+        Button(master, text="Auto", font="Roboto 30 bold",
+               fg="white", bg="blue",
+               activeforeground="white", activebackground="blue",
+               command=self.unlock).place(x=110,y=405,width=100,height=70)
+        Button(master, text="Aus", font="Roboto 30 bold",
+               fg="white", bg="red",
+               activeforeground="white", activebackground="red",
+               command=self.lockOff).place(x=215,y=405,width=100,height=70)
 
         self.updateLoop()
 
@@ -185,10 +230,14 @@ class Controller:
             tl = self.tl = Toplevel(self.root,background="white",bd=3)
             tl.overrideredirect(1)
             tl.geometry("300x200+10+140")
-            Label(tl,text="Auto", width=300, background="blue", foreground="white", font="Roboto 12").pack()
-            Label(tl,text="Lüfter entsperren?", width=300, height=3, background="white", font="Roboto 24 bold").pack()
-            Button(tl,text="Abbrechen", width=9, background="red", foreground="white", font="Roboto 18", command=tl.destroy).pack(side=LEFT)
-            Button(tl,text="OK", width=9, background="green", foreground="white", font="Roboto 18", command=self.dounlock).pack(side=BOTTOM)
+            Label(tl,text="Auto", background="blue", foreground="white", font="Roboto 12").place(x=0,y=0,width=300,height=20)
+            Label(tl,text="Lüfter entsperren?", width=300, height=3, background="white", font="Roboto 24 bold").place(x=0,y=20,width=300,height=142)
+            Button(tl,text="Abbrechen", bg="red", fg="white",
+                   activebackground="red", activeforeground="white",
+                   font="Roboto 16", command=tl.destroy).place(x=0,y=162,width=150,height=36)
+            Button(tl,text="OK", bg="green", fg="white",
+                   activebackground="green", activeforeground="white",
+                   font="Roboto 16", command=self.dounlock).place(x=150,y=162,width=150,height=36)
             tl.grab_set()
             self.root.wait_window(tl)
 
