@@ -22,6 +22,10 @@ DATADIR=BASEDIR+'/data'
 BINDIR=BASEDIR+'/bin'
 LOCKFILE=BASEDIR+'/fanctl.lock'
 
+logging.basicConfig(filename=LOGDIR+'/fanctl.log',
+                    format='%(asctime)s %(levelname)s: %(message)s',
+                    level=logging.INFO)
+
 DRYRUN = False
 
 FANINPORT = "1"
@@ -220,7 +224,4 @@ def main(argv=None):
     return usage()
 
 if __name__ == "__main__":
-  logging.basicConfig(filename=LOGDIR+'/fanctl.log',
-                      format='%(asctime)s %(levelname)s: %(message)s',
-                      level=logging.INFO)
   sys.exit(main())
