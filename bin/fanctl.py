@@ -68,10 +68,11 @@ def on(force=False):
     logging.debug("Asked to swich fan on, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
   else:
-    if not DRYRUN:
-      subprocess.call([SISPMCTL,"-o "+FANINPORT])
-      subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
     if getvalues.getValues()['Fan'] == "0":
+      if not DRYRUN:
+        subprocess.call([SISPMCTL,"-A "+FANINPORT])
+        subprocess.call([SISPMCTL,"-o "+FANINPORT])
+        subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
       logging.info("switched fan on.")
     rrdtool.update(DATADIR+'/fan.rrd','N:1')
 
@@ -81,13 +82,15 @@ def off(force=False):
     logging.debug("Asked to swich fan off, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
   else:
-    if not DRYRUN:
-      subprocess.call([SISPMCTL,"-f "+FANOUTPORT])
-      if force:
-        subprocess.call([SISPMCTL,"-f "+FANINPORT])
-      else:
-        subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter","2","--Ado","off"])
     if getvalues.getValues()['Fan'] == "1":
+      if not DRYRUN:
+        subprocess.call([SISPMCTL,"-A "+FANOUTPORT])
+        subprocess.call([SISPMCTL,"-f "+FANOUTPORT])
+        if force:
+          subprocess.call([SISPMCTL,"-A "+FANINPORT])
+          subprocess.call([SISPMCTL,"-f "+FANINPORT])
+        else:
+          subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter","2","--Ado","off"])
       logging.info("switched fan off.")
     rrdtool.update(DATADIR+'/fan.rrd','N:0')
 
