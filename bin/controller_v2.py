@@ -18,7 +18,7 @@ locale.setlocale(locale.LC_ALL,'de_DE')
 
 class LockDialog(Toplevel):
 
-    def __init__(self, parent, onoff="on"):
+    def __init__(self, parent, controller, onoff="on"):
 
         Toplevel.__init__(self, parent)
         self.transient(parent)
@@ -27,6 +27,7 @@ class LockDialog(Toplevel):
         self.geometry("300x200+10+140")
 
         self.onoff = onoff
+        self.controller = controller
 
         if onoff == "on":
             title = "An"
@@ -50,8 +51,7 @@ class LockDialog(Toplevel):
         else:
             fanctl.lock(0,"inf")
 
-        self.LockLabel.configure(background="red")
-        self.LockLine.set("gesperrt")
+        self.controller.updateValues()
             
         self.destroy()
 
@@ -103,9 +103,9 @@ class Controller:
         Label(master, text="AF", font="Roboto 12 bold", background="white").place(x=148,y=320)
         Label(master, textvariable=self.AHaussen, font="Roboto 25 bold", background="white").place(x=170,y=315,width=150,height=45)
         self.FanLabel = Label(master, textvariable=self.FanLine, font="Roboto 18", background="white")
-        self.FanLabel.place(x=0,y=360,height=40,width=140)
+        self.FanLabel.place(x=1,y=360,height=40,width=139)
         self.LockLabel = Label(master, textvariable=self.LockLine, font="Roboto 18", background="blue", foreground="white")
-        self.LockLabel.place(x=140,y=360,height=40,width=180)
+        self.LockLabel.place(x=141,y=360,height=40,width=178)
 
         Button(master, text="An", font="Roboto 30 bold", foreground="white", background="green", command=self.lockOn).place(x=5,y=405,width=100,height=70)
         Button(master, text="Auto", font="Roboto 30 bold", foreground="white", background="blue", activebackground="blue", command=self.unlock).place(x=110,y=405,width=100,height=70)
@@ -114,10 +114,10 @@ class Controller:
         self.updateLoop()
 
     def lockOn(self):
-        LockDialog(self.root)
+        LockDialog(self.root,self)
 
     def lockOff(self):
-        LockDialog(self.root,onoff="off")
+        LockDialog(self.root,self,onoff="off")
 
     def unlock(self):
         if fanctl.islocked():
@@ -133,8 +133,7 @@ class Controller:
 
     def dounlock(self):
         fanctl.unlock()
-        self.LockLabel.configure(background="blue")
-        self.LockLine.set("Auto")
+        self.updateValues()
 
         self.tl.destroy()
 
@@ -214,18 +213,28 @@ class Controller:
             if islocked == "inf":
                 self.LockLine.set("gesperrt")
             else:
-                if islocked > 604800:
-                    n = islocked / 604800
-                    self.LockLine.set("%i Wochen" % n)
-                elif islocked > 86400:
-                    n = islocked / 86400
+                if islocked > ( 6*24*60*60 ):
+                    n = ( islocked -1 ) / ( 7*24*60*60 ) + 1
+                    unit = "Woche"
+                    plural = "n"
+                elif islocked > ( 23*60*60 ):
+                    n = ( islocked - 1 ) / ( 24*60*60 ) + 1
+                    unit = "Tag"
+                    plural = "e"
                     self.LockLine.set("%i Tage" % n)
-                elif islocked > 3600:
-                    n = islocked / 3600
+                elif islocked > ( 59*60 ):
+                    n = ( islocked - 1 ) / ( 60*60 ) + 1
+                    unit = "Stunde"
+                    plural = "n"
                     self.LockLine.set("%i Stunden" % n)
                 else:
-                    n = islocked / 60
+                    n = ( islocked -1 ) / 60 + 1
+                    unit = "Minute"
+                    plural = "n"
                     self.LockLine.set("% i Minuten" % n)
+                if n > 1:
+                    unit += plural
+                self.LockLine.set("%i %s" % (n,unit))
         else:
             self.LockLabel.configure(background="blue")
             self.LockLine.set("Auto")
