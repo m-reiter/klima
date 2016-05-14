@@ -9,7 +9,7 @@ rrdtool graph $FILENAME -w 800 -h 300 -D -l 0 -s "-$1" -S $2 \
 -P \
 --slope-mode \
 --title "Feuchte" \
---vertical-label "Rel. Feuchte [%]" \
+--vertical-label "Rel. Feuchte / Laufzeit [%]" \
 --right-axis-label "Abs. Feuchte [g/m<sup>3</sup>]" \
 --right-axis 0.2:0 \
 --right-axis-format %2.1lf \
@@ -32,6 +32,7 @@ DEF:On=$DATADIR/fan.rrd:on:AVERAGE \
 CDEF:Fan=On,100,* \
 CDEF:AHPaussen=AHaussen,.2,/ \
 CDEF:AHPkeller=AHkeller,.2,/ \
+AREA:Fan#00ff0080 \
 LINE0:kellerMIN#00000000: \
 AREA:kellerDIFF#ff000050::STACK \
 LINE0:AHPkellerMIN#00000000: \
@@ -40,5 +41,5 @@ LINE0:AHPaussenMIN#00000000: \
 AREA:AHaussenDIFF#0000ff50::STACK \
 LINE2:keller#ff0000:"Rel. Feuchte Keller" \
 LINE2:AHPaussen#0000ff:"Abs. Feuchte aussen" \
-LINE2:AHPkeller#ff00ff:"Abs. Feuchte Keller"
-# LINE2:Fan#00ff00:"Lüfter an"
+LINE2:AHPkeller#ff00ff:"Abs. Feuchte Keller" \
+TICK:Fan#00ff0080:0.0:"Lüfter"
