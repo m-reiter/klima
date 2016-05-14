@@ -1,0 +1,10 @@
+/opt/klima/log/*.log {
+	daily
+	missingok
+	notifempty
+	compress
+	delaycompress
+	dateext
+	dateyesterday
+	create 644 klima klima
+}
