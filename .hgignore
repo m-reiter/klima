@@ -1,5 +1,6 @@
 ^.*\.pyc
 ^.*\.orig
-^data/
-^graphics/
-^log/
+^data/.*
+^graphics/.*
+^log/.*
+^ftp/.*
