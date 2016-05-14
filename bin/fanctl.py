@@ -37,8 +37,8 @@ AHmargin = 1.5		# Mindestdifferenz absolute Feuchte (zum Einschalten)
 AHhysterese = 0.5       # Hysterese hierzu
 DPmargin = 2.0		# Mindestdifferenz Taupunkt (zum Einschalten)
 DPhysterese = 1.0       # Hysterese hierzu
-Tkellermin = 10.0	# Mindesttemperatur Keller (zum Einschalten)
-Tkellermax = 22.0	# Maximaltemperatur Keller (zum Einschalten)
+Tkellermin = 10.0	# Mindesttemperatur Keller (hier wird ausgeschaltet)
+Tkellermax = 24.0	# Maximaltemperatur Keller (hier wird ausgeschaltet)
 Thysterese = 2.0
 
 def usage():
@@ -122,10 +122,10 @@ def cron():
       Taussen = float(currentState["Taussen"])
       if Taussen > Tkeller:
         if Fan == "0":
-          margin = 0.0
-        else:
           margin = Thysterese
-        if Tkeller < Tkellermax + margin: 
+        else:
+          margin = 0.0
+        if ( Taussen < Tkellermax ) or ( Tkeller < Tkellermax - margin ): 
           logging.debug("temp. outside is higher and cellar is not too warm, switching fan on.")
           on()
         else:
@@ -133,12 +133,12 @@ def cron():
           off()
       else:
         if Fan == "0":
-          marginT = 0.0
+          marginT = Thysterese
           marginDP = DPmargin
         else:
-          marginT = Thysterese
+          marginT = 0.0
           marginDP = DPmargin - DPhysterese
-        if ( Tkeller > Tkellermin -marginT ) and ( Tkeller > DPkeller + marginDP ):
+        if ( ( Taussen > Tkellermin ) or ( Tkeller > Tkellermin + marginT ) ) and ( Tkeller > DPkeller + marginDP ):
           logging.debug("temp. outside is lower but cellar is warm enough and well above dew point, switching fan on.")
           on()
         else:
