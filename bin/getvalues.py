@@ -152,6 +152,6 @@ if __name__ == '__main__':
 <li><a href="../klima/3Mavg.html" target="_top">3 Monate</a></li>
 <li><a href="../klima/6Mavg.html" target="_top">6 Monate</a></li>
 </ul>
-</center>\
+<a href="../klima/control.php" target="_top"><h3>Steuerung</h3></a>
 ''' % ( time.strftime("%-d.%-m.%Y, %-H:%M"),
         Tkeller, RHkeller, DPkeller, AHkeller, Taussen, RHaussen, DPaussen, AHaussen, color, textcolor, Fan )
