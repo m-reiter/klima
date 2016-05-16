@@ -152,7 +152,7 @@ if __name__ == '__main__':
 <li><a href="../klima/3Mavg.html" target="_top">3 Monate</a></li>
 <li><a href="../klima/6Mavg.html" target="_top">6 Monate</a></li>
 </ul>
-<h3>Monatssmittel</h3>
+<h3>Monatsmittel</h3>
 <ul>
 <li><a href="../klima/1Ymonthly.html" target="_top">1 Jahr</a></li>
 <li><a href="../klima/2Ymonthly.html" target="_top">2 Jahre</a></li>
