@@ -146,11 +146,16 @@ if __name__ == '__main__':
 <li><a href="../klima/1w.html" target="_top">1 Woche</a></li>
 <li><a href="../klima/1M.html" target="_top">1 Monat</a></li>
 </ul>
-<h3>Tagesdurchschnitt</h3>
+<h3>Tagesmittel</h3>
 <ul>
 <li><a href="../klima/1Mavg.html" target="_top">1 Monat</a></li>
 <li><a href="../klima/3Mavg.html" target="_top">3 Monate</a></li>
 <li><a href="../klima/6Mavg.html" target="_top">6 Monate</a></li>
+</ul>
+<h3>Monatssmittel</h3>
+<ul>
+<li><a href="../klima/1Ymonthly.html" target="_top">1 Jahr</a></li>
+<li><a href="../klima/2Ymonthly.html" target="_top">2 Jahre</a></li>
 </ul>
 <a href="../klima/control.php" target="_top"><h3>Steuerung</h3></a>
 ''' % ( time.strftime("%-d.%-m.%Y, %-H:%M"),

@@ -9,12 +9,20 @@ do
   $BINDIR/graphRH.sh $d
 done
 
-# Tagesdurchschnitte
+# Tagesmittel
 for d in 1month 3months 6months
 do
   $BINDIR/graphTavg.sh $d 86400
   $BINDIR/graphRHavg.sh $d 86400
   $BINDIR/graphFan.sh $d 86400
+done
+
+# Monatsmittel
+for d in 1year 2years
+do
+  $BINDIR/graphTavg.sh $d 2678400
+  $BINDIR/graphRHavg.sh $d 2678400
+  $BINDIR/graphFan.sh $d 2678400
 done
 
 $BINDIR/getvalues.py > $GRAPHDIR/sidebar_neu.html
