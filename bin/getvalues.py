@@ -17,7 +17,7 @@ def getValues():
   kellerinfo = rrdtool.info(DATADIR+'/keller.rrd')
   ausseninfo = rrdtool.info(DATADIR+'/aussen.rrd')
   faninfo = rrdtool.info(DATADIR+'/fan.rrd')
-  if ( now - kellerinfo["last_update"] > 180 ):
+  if ( now - kellerinfo["last_update"] > 600 ):
     Tkeller = "U"
     RHkeller = "U"
     DPkeller = "U"
@@ -27,7 +27,7 @@ def getValues():
     RHkeller = kellerinfo["ds[RH].last_ds"]
     DPkeller = kellerinfo["ds[DP].last_ds"]
     AHkeller = kellerinfo["ds[AH].last_ds"]
-  if ( now - ausseninfo["last_update"] > 180 ):
+  if ( now - ausseninfo["last_update"] > 600 ):
     Taussen = "U"
     RHaussen = "U"
     DPaussen = "U"
