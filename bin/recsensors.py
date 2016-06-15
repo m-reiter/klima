@@ -47,21 +47,19 @@ def main():
       RHaussen = data[11]
       RHkeller = data[12]
       if ( Taussen == 'U' ) or (RHaussen == 'U'):
-        AHaussen = 'U'
-        DPaussen = 'U'
+        logging.warn("Aussen: no valid sensor reading")
       else:
         AHaussen = str(feuchte.AF(float(RHaussen),float(Taussen)))
         DPaussen = str(feuchte.TD(float(RHaussen),float(Taussen)))
+        logging.debug("Aussen: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Taussen,RHaussen,AHaussen,DPaussen ))
+        rrdtool.update(DATADIR+'/aussen.rrd','N:'+Taussen+':'+RHaussen+':'+AHaussen+':'+DPaussen)
       if ( Tkeller == 'U' ) or (RHkeller == 'U'):
-        AHkeller = 'U'
-        DPkeller = 'U'
+        logging.warn("Keller: no valid sensor reading")
       else:
         AHkeller = str(feuchte.AF(float(RHkeller),float(Tkeller)))
         DPkeller = str(feuchte.TD(float(RHkeller),float(Tkeller)))
-      logging.debug("Aussen: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Taussen,RHaussen,AHaussen,DPaussen ))
-      logging.debug("Keller: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Tkeller,RHkeller,AHkeller,DPkeller ))
-      rrdtool.update(DATADIR+'/keller.rrd','N:'+Tkeller+':'+RHkeller+':'+AHkeller+':'+DPkeller)
-      rrdtool.update(DATADIR+'/aussen.rrd','N:'+Taussen+':'+RHaussen+':'+AHaussen+':'+DPaussen)
+        logging.debug("Keller: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Tkeller,RHkeller,AHkeller,DPkeller ))
+        rrdtool.update(DATADIR+'/keller.rrd','N:'+Tkeller+':'+RHkeller+':'+AHkeller+':'+DPkeller)
 
 if __name__ == '__main__':
   main()
