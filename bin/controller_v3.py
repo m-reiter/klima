@@ -7,6 +7,9 @@
 BASEDIR='/opt/klima'
 GRAPHDIR=BASEDIR+'/graphics'
 
+# green
+green = "#00b000"
+
 from Tkinter import *
 import tkMessageBox
 import getvalues
@@ -35,7 +38,7 @@ class LockDialog(Toplevel):
         if onoff == "on":
             title = "An"
             action = "einschalten"
-            col = "green"
+            col = green
         else:
             title = "Aus"
             action = "ausschalten"
@@ -98,8 +101,8 @@ class LockDialog(Toplevel):
         Button(self,text="Abbrechen", bg="red", fg="white",
                activebackground="red", activeforeground="white",
                font="Roboto 16", command=self.destroy).place(x=0,y=364,width=150,height=36)
-        Button(self,text="OK", bg="green", fg="white",
-               activebackground="green", activeforeground="white",
+        Button(self,text="OK", bg=green fg="white",
+               activebackground=green activeforeground="white",
                font="Roboto 16", command=self.doit).place(x=150,y=364,width=150,height=36)
 
         self.reset()
@@ -205,8 +208,8 @@ class Controller:
         self.LockLabel.place(x=141,y=360,height=40,width=178)
 
         Button(master, text="An", font="Roboto 30 bold",
-               fg="white", bg="green",
-               activeforeground="white", activebackground="green",
+               fg="white", bg=green
+               activeforeground="white", activebackground=green
                command=self.lockOn).place(x=5,y=405,width=100,height=70)
         Button(master, text="Auto", font="Roboto 30 bold",
                fg="white", bg="blue",
@@ -235,8 +238,8 @@ class Controller:
             Button(tl,text="Abbrechen", bg="red", fg="white",
                    activebackground="red", activeforeground="white",
                    font="Roboto 16", command=tl.destroy).place(x=0,y=162,width=150,height=36)
-            Button(tl,text="OK", bg="green", fg="white",
-                   activebackground="green", activeforeground="white",
+            Button(tl,text="OK", bg=green fg="white",
+                   activebackground=green activeforeground="white",
                    font="Roboto 16", command=self.dounlock).place(x=150,y=162,width=150,height=36)
             tl.grab_set()
             self.root.wait_window(tl)
@@ -264,7 +267,7 @@ class Controller:
             if RHkeller > 60.0:
                 self.RHkellerLabel.configure(foreground="red")
             else:
-                self.RHkellerLabel.configure(foreground="black")
+                self.RHkellerLabel.configure(foreground=green)
         if currentState['DPkeller'] == "U":
             self.DPkeller.set("--    ")
         else:
@@ -298,7 +301,7 @@ class Controller:
         else:
             if float(currentState['Fan']) > .99:
                 Fan = "AN"
-                self.FanLabel.configure(background="green")
+                self.FanLabel.configure(background=green
                 self.FanLabel.configure(foreground="white")
             else:
                 Fan = "AUS"
@@ -352,8 +355,8 @@ class Controller:
         self.TimeLine.set(time.strftime("%a %-d.%-m.%Y %H:%M"))
 
     def updateLoop(self):
-        self.updateValues()
         root.after(60000,self.updateLoop)
+        self.updateValues()
 
 root = Tk()
 
