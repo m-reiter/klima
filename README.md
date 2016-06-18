@@ -8,7 +8,7 @@ Sollte diese Software für irgendjemanden nützlich sein, würde ich mich über 
 
 Copyright für diese Software 2016 bei Manuel Reiter.
 
-Dies ist Open Source Software und steht unter der [GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt) zur Verfügung. Eine Kopie der Lizent liegt dem Sourcecode bei.
+Dies ist Open Source Software und steht unter der [GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt) zur Verfügung. Eine Kopie der Lizenz liegt dem Sourcecode bei.
 
 ## License/Copyright
 
