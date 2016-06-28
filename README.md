@@ -1,8 +1,12 @@
 # Feuchtegesteuerte Kellerlüftung
 
-Dies ist meine Skriptsammlung zur Realisierung einer feuchtegesteuerten Kellerlüftung auf dem Raspberry Pi. Ausführliche Dokumentation folgt (hoffentlich) noch.
+Dies ist meine Skriptsammlung zur Realisierung einer feuchtegesteuerten Kellerlüftung auf dem Raspberry Pi.
 
-Sollte diese Software für irgendjemanden nützlich sein, würde ich mich über eine Nachricht freuen.
+![Bedienoberfläche auf dem Pi](http://m_reiter.bitbucket.org/klima/pics/pi.jpg)
+
+Ich habe das Projekt im [deutschen Raspberry Pi Forum ausführlich vorgestellt](http://www.forum-raspberrypi.de/Thread-haussteuerung-feuchtegesteuerte-kellerlueftung). Fragen beantworte ich dort gerne.
+
+Sollte diese Software für irgendjemanden nützlich sein, würde ich mich über eine Nachricht freuen - entweder im Forum oder hier auf Bitbucket.
 
 ## Lizenz/Copyright
 
