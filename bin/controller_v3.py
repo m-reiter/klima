@@ -6,6 +6,7 @@
 # directories
 BASEDIR='/opt/klima'
 GRAPHDIR=BASEDIR+'/graphics'
+HEARTBEAT=GRAPHDIR+'/controller.heartbeat'
 
 # green
 green = "#00b000"
@@ -16,6 +17,7 @@ import getvalues
 import fanctl
 import time
 import locale
+import os
 
 locale.setlocale(locale.LC_ALL,'de_DE')
 
@@ -357,8 +359,11 @@ class Controller:
     def updateLoop(self):
         root.after(60000,self.updateLoop)
         self.updateValues()
+        with open(HEARTBEAT,'a'):
+          os.utime(HEARTBEAT,None)
 
 root = Tk()
+root.title("Kellerüberwachung")
 
 app = Controller(root)
 

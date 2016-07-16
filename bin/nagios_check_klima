@@ -1,0 +1,144 @@
+#!/bin/bash
+
+usage() {
+  echo "usage: $(basename $0) -r | -s <sensor> | -f | -g"
+
+  [ "$1" == "-v" ] || exit 3
+
+  cat <<EOF
+
+      -r            check recording of sensor data
+
+      -s <sensor>   check sensor <sensor>
+
+      -f            check fan status/running of fanctl
+
+      -g            check GUI
+
+EOF
+}
+
+check_recsensors() {
+  CHECKRECSENSORS_PID=$(pidof -x checkrecsensors.sh)
+  RECSENSORS_PID=$(pidof -x recsensors.py)
+
+  [ ! -z "$CHECKRECSENSORS_PID" ] && [ ! -z "$RECSENSORS_PID" ] && {
+     echo "Both processes running:"
+     pstree -lups $RECSENSORS_PID
+     exit 0
+  }
+
+  [ -z "$CHECKRECSENSORS_PID" ] && [ -z "$RECSENSORS_PID" ] && {
+     echo "Both processes died!"
+     exit 2
+  }
+
+  echo "Only one process running:"
+  pstree -lups $RECSENSORS_PID$CHECKRECSENSORS_PID
+  exit 1
+}
+
+check_sensor() {
+  LASTUPDATE=$(rrdtool lastupdate /opt/klima/data/$1.rrd | tail -1)
+
+  LASTTIME=$(echo $LASTUPDATE | cut -d: -f1)
+  NOW=$(date +%s)
+
+  TEMP=$(echo $LASTUPDATE | awk '{ print $2; }')
+  RH=$(echo $LASTUPDATE | awk '{ print $3; }')
+  AH=$(echo $LASTUPDATE | awk '{ print $4; }')
+  DP=$(echo $LASTUPDATE | awk '{ print $5; }')
+
+  LC_NUMERIC=C printf "%s - Temp: %4.1f°C  RH: %3.0f%%  AH: %4.1f g/m³  DP: %4.1f°C\n" $(date +%H:%M -d @$LASTTIME) $TEMP $RH $AH $DP 
+  echo "Last update at $(date -d @$LASTTIME)."
+
+  [[ $((NOW-LASTTIME)) -lt  $((15*60)) ]] && exit 0
+
+  [[ $((NOW-LASTTIME)) -lt  $((8*60*60)) ]] && {
+
+    echo "No update for more than 15 minutes!"
+    exit 1
+
+  }
+
+  echo "No update for MORE THAN EIGHT HOURS!!!"
+  exit 2
+}
+
+check_fan() {
+  LASTUPDATE=$(rrdtool lastupdate /opt/klima/data/fan.rrd | tail -1)
+
+  LASTTIME=$(echo $LASTUPDATE | cut -d: -f1)
+  NOW=$(date +%s)
+
+  FAN=$(echo $LASTUPDATE | awk '{ print $2; }')
+  NOT=""
+  [ "$FAN" == "0" ] && NOT="not "
+
+  echo -n "$(date +%H:%M -d @$LASTTIME) - Fan is ${NOT}running. "
+  [ -f "/opt/klima/fanctl.lock" ] && {
+    echo "Fan is locked until $(date -d $(cat /opt/klima/fan.lock))."
+  } || {
+    echo "Fan is on AUTO."
+  }
+  echo "Last update at $(date -d @$LASTTIME)."
+
+  [[ $((NOW-LASTTIME)) -lt  $((4*60)) ]] && exit 0
+
+  [[ $((NOW-LASTTIME)) -lt  $((14*60)) ]] && {
+
+    echo "No update for more than 4 minutes!"
+    exit 1
+
+  }
+
+  echo "No update for MORE THAN FIFTEEN MINUTES!!!"
+  exit 2
+}
+
+check_gui() {
+  pstree -la $(pgrep -u klima nodm) | grep -q controller
+  GUIRUNNING=$?
+
+  [ "$GUIRUNNING" != "0" ] && {
+     echo "controller_vX.py not found!"
+     exit 2
+  }
+
+  echo "GUI is running:"
+  pstree -laup $(pgrep -u klima nodm)
+
+  LASTTIME=$(date -r /opt/klima/graphics/controller.heartbeat +%s)
+  NOW=$(date +%s)
+
+  [[ $((NOW-LASTTIME)) -gt  90 ]] && {
+
+    echo "No GUI update for more than 90 seconds!"
+    exit 1
+
+  }
+
+  exit 0
+}
+
+getopts :rs:fg OPT || usage
+[ "$OPT" == ":" ] && usage
+
+shift $((OPTIND-1))
+
+[ $# == 0 ] || usage
+
+case $OPT in
+r)
+  check_recsensors
+  ;;
+s)
+  check_sensor $OPTARG
+  ;;
+f)
+  check_fan
+  ;;
+g)
+  check_gui
+  ;;
+esac
