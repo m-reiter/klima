@@ -17,7 +17,7 @@ DEF:DPaussen=$DATADIR/aussen.rrd:DP:AVERAGE \
 DEF:DPkeller=$DATADIR/keller.rrd:DP:AVERAGE \
 DEF:DWD=$GRAPHDIR/dwd.rrd:T:AVERAGE \
 DEF:on=$DATADIR/fan.rrd:on:AVERAGE \
-CDEF:Fan=on,.9,GT,Tkeller,0,IF \
+CDEF:Fan=on,Tkeller,* \
 AREA:Fan#00ff0080: \
 LINE2:Taussen#000000:Aussen \
 LINE2:DWD#80808080:"DWD Westend" \

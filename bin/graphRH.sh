@@ -20,7 +20,7 @@ DEF:DWD=$GRAPHDIR/dwd.rrd:RH:AVERAGE \
 DEF:on=$DATADIR/fan.rrd:on:AVERAGE \
 CDEF:AHPaussen=AHaussen,.2,/ \
 CDEF:AHPkeller=AHkeller,.2,/ \
-CDEF:Fan=on,.9,GT,AHPkeller,0,IF \
+CDEF:Fan=on,AHPkeller,* \
 AREA:Fan#00ff0080: \
 LINE2:aussen#000000:"Rel. Feuchte aussen" \
 LINE2:keller#ff0000:"Rel. Feuchte Keller" \

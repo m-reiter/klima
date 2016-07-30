@@ -301,8 +301,11 @@ class Controller:
             self.FanLabel.configure(background="black")
             self.FanLabel.configure(foreground="white")
         else:
-            if float(currentState['Fan']) > .99:
-                Fan = "AN"
+            if float(currentState['Fan']) > 0.:
+                if float(currentState['Fan']) == 1:
+                  Fan = "AN"
+                else:
+                  Fan = "IVL"
                 self.FanLabel.configure(background=green)
                 self.FanLabel.configure(foreground="white")
             else:

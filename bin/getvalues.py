@@ -87,10 +87,13 @@ if __name__ == '__main__':
     textcolor = "black"
     Fan = '--'
   else:
-    if float(values['Fan']) > .99:
+    if float(values['Fan']) > 0.:
       color="green"
       textcolor = "white"
-      Fan = 'AN'
+      if float(values['Fan']) == 1:
+        Fan = 'AN'
+      else:
+        Fan = 'Intervall ('+values['Fan']+')'
     else:
       color="red"
       textcolor = "white"

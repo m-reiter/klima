@@ -40,6 +40,13 @@ DPhysterese = 1.0       # Hysterese hierzu
 Tkellermin = 10.0	# Mindesttemperatur Keller (hier wird ausgeschaltet)
 Tkellermax = 24.0	# Maximaltemperatur Keller (hier wird ausgeschaltet)
 Thysterese = 2.0
+UseInterval = True	# Intervallueftung verwenden?
+LockInterval = False	# auch bei gesperrtem Ventilator?
+IntervalOn = 10		# Wie lange lueften
+IntervalOff = 20	# Wie lange Pause
+
+assert IntervalOn > 2
+assert IntervalOff > 2
 
 def usage():
   print """
@@ -72,13 +79,24 @@ def on(force=False):
     logging.debug("Asked to swich fan on, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
   else:
-    if getvalues.getValues()['Fan'] == "0":
+    if UseInterval and (LockInterval or not force):
+      FanRatio = str(round(float(IntervalOn)/(IntervalOn+IntervalOff),3))
+      logging.debug("Interval ventilation in use, setting ratio to "+FanRatio)
+    else:
+      FanRatio = "1"
+    if getvalues.getValues()['Fan'] != FanRatio:
       if not DRYRUN:
-        subprocess.call([SISPMCTL,"-A "+FANINPORT])
-        subprocess.call([SISPMCTL,"-o "+FANINPORT])
-        subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
+        if UseInterval and (LockInterval or not force):
+          subprocess.call([SISPMCTL,"-A "+FANINPORT])
+          subprocess.call([SISPMCTL,"-o "+FANINPORT])
+          subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter",str(IntervalOn),"--Ado","off","--Aafter",str(IntervalOff),"--Ado","on","--Aloop",str(IntervalOn+IntervalOff)])
+          subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on","--Aafter",str(IntervalOn-2),"--Ado","off","--Aloop",str(IntervalOn+IntervalOff)])
+        else:
+          subprocess.call([SISPMCTL,"-A "+FANINPORT])
+          subprocess.call([SISPMCTL,"-o "+FANINPORT])
+          subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
       logging.info("switched fan on.")
-    rrdtool.update(DATADIR+'/fan.rrd','N:1')
+    rrdtool.update(DATADIR+'/fan.rrd','N:'+FanRatio)
 
 def off(force=False):
   logging.debug("off called.")
