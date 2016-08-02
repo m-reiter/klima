@@ -18,6 +18,7 @@ import fanctl
 import time
 import locale
 import os
+import fractions
 
 locale.setlocale(locale.LC_ALL,'de_DE')
 
@@ -205,9 +206,9 @@ class Controller:
         Label(master, text="AF", font="Roboto 12 bold", background="white").place(x=148,y=320)
         Label(master, textvariable=self.AHaussen, font="Roboto 25 bold", background="white").place(x=170,y=315,width=150,height=45)
         self.FanLabel = Label(master, textvariable=self.FanLine, font="Roboto 18", background="white")
-        self.FanLabel.place(x=1,y=360,height=40,width=139)
+        self.FanLabel.place(x=1,y=360,height=40,width=158)
         self.LockLabel = Label(master, textvariable=self.LockLine, font="Roboto 18", background="blue", foreground="white")
-        self.LockLabel.place(x=141,y=360,height=40,width=178)
+        self.LockLabel.place(x=161,y=360,height=40,width=158)
 
         Button(master, text="An", font="Roboto 30 bold",
                fg="white", bg=green,
@@ -301,11 +302,12 @@ class Controller:
             self.FanLabel.configure(background="black")
             self.FanLabel.configure(foreground="white")
         else:
-            if float(currentState['Fan']) > 0.:
-                if float(currentState['Fan']) == 1:
+            fanvalue = float(currentState['Fan'])
+            if fanvalue > 0.:
+                if fanvalue == 1:
                   Fan = "AN"
                 else:
-                  Fan = "IVL"
+                  Fan = str(fractions.Fraction.from_float(fanvalue).limit_denominator(60))
                 self.FanLabel.configure(background=green)
                 self.FanLabel.configure(foreground="white")
             else:

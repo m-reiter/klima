@@ -6,6 +6,7 @@
 
 import rrdtool
 import time
+import fractions
 
 # directories
 BASEDIR='/opt/klima'
@@ -87,13 +88,14 @@ if __name__ == '__main__':
     textcolor = "black"
     Fan = '--'
   else:
-    if float(values['Fan']) > 0.:
+    fanvalue = float(values['Fan'])
+    if fanvalue > 0.:
       color="green"
       textcolor = "white"
-      if float(values['Fan']) == 1:
+      if fanvalue == 1:
         Fan = 'AN'
       else:
-        Fan = 'Intervall ('+values['Fan']+')'
+        Fan = "Intervall (%s)" % fractions.Fraction.from_float(fanvalue).limit_denominator(60)
     else:
       color="red"
       textcolor = "white"
