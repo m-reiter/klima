@@ -1,0 +1,2 @@
+#mr added group use for sispmctl
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0664", GROUP="usb"
