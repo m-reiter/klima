@@ -104,7 +104,8 @@ def off(force=False):
     logging.debug("Asked to swich fan off, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
   else:
-    if getvalues.getValues()['Fan'] == "1":
+    logging.debug("Current fan value is: %s" % getvalues.getValues()['Fan'])
+    if getvalues.getValues()['Fan'] != "0":
       if not DRYRUN:
         subprocess.call([SISPMCTL,"-A "+FANOUTPORT])
         subprocess.call([SISPMCTL,"-f "+FANOUTPORT])
