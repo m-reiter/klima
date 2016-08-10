@@ -77,7 +77,7 @@ check_fan() {
 
   echo -n "$(date +%H:%M -d @$LASTTIME) - Fan is ${NOT}running. "
   [ -f "/opt/klima/fanctl.lock" ] && {
-    echo "Fan is locked until $(date -d $(cat /opt/klima/fan.lock))."
+    echo "Fan is locked until $(date -d $(cat /opt/klima/fanctl.lock))."
   } || {
     echo "Fan is on AUTO."
   }
