@@ -4,6 +4,7 @@ rrdtool create /opt/klima/graphics/dwd.rrd --start $START --step 3600 \
 DS:T:GAUGE:3600:-30:70 \
 DS:RH:GAUGE:3600:0:100 \
 RRA:AVERAGE:0.5:1:744
+[ -f /opt/klima/graphics/de-dwd-nkdz-req-TAUUHV.csv ] || exit 0
 for t in $(cut -d"," -f2 /opt/klima/graphics/de-dwd-nkdz-req-TAUUHV.csv)
 do
   tics=$(date -d "$t" +%s)
