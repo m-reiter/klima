@@ -87,7 +87,7 @@ Vorbereitung des Systems
 
     $ sudo apt-get update
     $ sudo apt-get upgrade
-    $ sudo apt-get install mercurial rrdtool sispmctl socat
+    $ sudo apt-get install mercurial rrdtool python-rrdtool sispmctl socat
 
 ### Gruppen und Benutzer anlegen
 
