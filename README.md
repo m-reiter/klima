@@ -4,7 +4,7 @@
 
 Dies ist meine Skriptsammlung zur Realisierung einer feuchtegesteuerten Kellerlüftung auf dem Raspberry Pi.
 
-![Bedienoberfläche auf dem Pi](http://m_reiter.bitbucket.org/klima/pics/pi.jpg)
+![Bedienoberfläche auf dem Pi](http://mrpics.bitbucket.org/klima/pics/pi.jpg)
 
 Ich habe das Projekt im [deutschen Raspberry Pi Forum ausführlich vorgestellt](http://www.forum-raspberrypi.de/Thread-haussteuerung-feuchtegesteuerte-kellerlueftung). Fragen beantworte ich dort gerne.
 
@@ -20,7 +20,7 @@ Dies ist Open Source Software und steht unter der [GPLv3](http://www.gnu.org/lic
 
 This is my script collection for realizing a humidity controlled cellar ventilation system on a Raspberry Pi 3.
 
-![simple monitoring website](http://m_reiter.bitbucket.org/klima/screens/webseite.png)
+![simple monitoring website](http://mrpics.bitbucket.org/klima/screens/webseite.png)
 
 I've [described the project in some detail on the Raspberry Pi forum](https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=152917). I'll be happy to answer questions or give assistance there.
 
