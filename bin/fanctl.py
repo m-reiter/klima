@@ -14,6 +14,7 @@ import sys
 import logging
 import time
 import os
+import mqtt
 
 # directories
 BASEDIR='/opt/klima'
@@ -78,6 +79,7 @@ def on(force=False):
   if islocked() and not force:
     logging.debug("Asked to swich fan on, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
+    mqtt.publishFan(getvalues.getValues()['Fan'])
   else:
     if UseInterval and (LockInterval or not force):
       FanRatio = str(round(float(IntervalOn)/(IntervalOn+IntervalOff),3))
@@ -97,12 +99,14 @@ def on(force=False):
           subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
       logging.info("switched fan on.")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+FanRatio)
+    mqtt.publishFan(FanRatio)
 
 def off(force=False):
   logging.debug("off called.")
   if islocked() and not force:
     logging.debug("Asked to swich fan off, but fan is locked")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+getvalues.getValues()['Fan'])
+    mqtt.publishFan(getvalues.getValues()['Fan'])
   else:
     logging.debug("Current fan value is: %s" % getvalues.getValues()['Fan'])
     if getvalues.getValues()['Fan'] != "0":
@@ -116,6 +120,7 @@ def off(force=False):
           subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter","2","--Ado","off"])
       logging.info("switched fan off.")
     rrdtool.update(DATADIR+'/fan.rrd','N:0')
+    mqtt.publishFan(0)
 
 def cron():
   currentState = getvalues.getValues()

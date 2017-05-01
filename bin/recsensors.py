@@ -12,6 +12,7 @@ import rrdtool
 import time
 import feuchte
 import logging
+import mqtt
 
 # directories
 BASEDIR='/opt/klima'
@@ -53,6 +54,7 @@ def main():
         DPaussen = str(feuchte.TD(float(RHaussen),float(Taussen)))
         logging.debug("Aussen: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Taussen,RHaussen,AHaussen,DPaussen ))
         rrdtool.update(DATADIR+'/aussen.rrd','N:'+Taussen+':'+RHaussen+':'+AHaussen+':'+DPaussen)
+        mqtt.publishTH("aussen",Taussen,DPaussen,RHaussen,AHaussen)
       if ( Tkeller == 'U' ) or (RHkeller == 'U'):
         logging.warn("Keller: no valid sensor reading")
       else:
@@ -60,6 +62,7 @@ def main():
         DPkeller = str(feuchte.TD(float(RHkeller),float(Tkeller)))
         logging.debug("Keller: T %s°C, RH %s%%, AF %s g/m^3, TP %s°C" % ( Tkeller,RHkeller,AHkeller,DPkeller ))
         rrdtool.update(DATADIR+'/keller.rrd','N:'+Tkeller+':'+RHkeller+':'+AHkeller+':'+DPkeller)
+        mqtt.publishTH("keller",Tkeller,DPkeller,RHkeller,AHkeller)
 
 if __name__ == '__main__':
   main()
