@@ -6,11 +6,11 @@ Disclaimer: NO WARRANTIES
 
 I'm happy that you're interested in my humidity controlled cellar ventilation project. I'll also be happy to help you implement it to the best of my abilities. I must stress, however, that this project comes with NO WARRANTIES, EXPRESS, IMPLIED, OR OTHERWISE, WHATSOEVER. If you fail to get it running, if it annoys your cat, even if it burns your house down, or causes any other damage, it's entirely your responsibility. I've programmed this as best I could and have had it running productively for over a year now without any problems. However, EVERYTHING YOU DO IS AT YOUR OWN RISK.
 
-In this sense:
+In this spirit:
 
 **Good luck and have fun!**
 
-These instructions are based on installtion notes by user YoYo from the german Raspberry Pi Forum.
+These instructions are based on installation notes by user YoYo from the german Raspberry Pi Forum.
 
 Functional principle
 --------------------
@@ -28,7 +28,7 @@ Commands to be entered are shown in code blocks which look like this:
 
 The dollar sign ($) symbolises the shell prompt and should not be entered.
 
-Some commands need root rights. These are recognisable by the "sudo" prefix and should be executed by a user with appropriate sudo rights. All other commands should be executed as user "klima" which will created in the course of installation. Before executing these commands you therefore need to log in as "klima" or execute a
+Some commands need root rights. These are recognisable by the "sudo" prefix and should be executed by a user with appropriate sudo rights. All other commands should be executed as user "klima" which will be created in the course of installation. Before executing these commands you therefore need to log in as "klima" or execute a
 
     $ su - klima
 
@@ -37,11 +37,11 @@ Overview
 
 The project consists of three components:
 
-- central piece is the actual script collection vor reading and storing the measurements and controlling the fans. This system doesn't have an UI, can be run without an attached display and could in principle also be run without a network connection - which would of course mean that there wouldn't be any possibility for remote monitoring or control.
+- central piece is the actual script collection for reading and storing the measurements and controlling the fans. This system doesn't have an UI, can be run without an attached display and could in principle also be run without a network connection - which would of course mean that there wouldn't be any possibility for remote monitoring or control.
 
-the other components are optional:
+The other components are optional:
 
-- controller\_v3.py is a GUI that displays the curent status and allows manual control of the fans. It's optimised for a 320x480 touch display and can be used directly on site. It can also be used remotely via X11 forwarding.
+- controller\_v3.py is a GUI that displays the current status and allows manual control of the fans. It's optimised for a 320x480 touch display and can be used directly on site. It can also be used remotely via X11 forwarding.
 
 - The core system creates HTML pages and progression charts. These can be accessed via an optional web server installed on the Pi. The charts are somewhat more detailed than in the GUI, the control options are basically the same.
 
@@ -57,13 +57,13 @@ You need:
 
 - 2 radio sensors ASH 2200 (ELV)
 
-- 1 USB power strip Energenie EG-PMS2
-  This is my solution to switch the fans. The project could of course be adapted to other switching methods. If you're interested in that, please contact me and I'll be happy to help.
+- 1 USB power strip Energenie EG-PMS2  
+  This is my solution for switching the fans. The project could of course be adapted to other switching methods. If you're interested in that, please contact me and I'll be happy to help.
   
 And optionally
 
-- 1 3,5" touch screen (320x480) (possibly with case)
-  Needed if you want to have a display and controls directly at the installation site. I use the Tontec model since it comes with a case. It also has a physical switch for the backlighgt which allows me to deactivate screen blanking and still only light the display when needen. *Caution*: I've seen pictures of the Tontec display without this switch. If this is important for you, I'd advise you to contact the seller before buying.
+- 1 3,5" touch screen (320x480) (possibly with case)  
+  Needed if you want to have a display and controls directly at the installation site. I use the Tontec model since it comes with a case. It also has a physical switch for the backlight which allows me to deactivate screen blanking and still only light the display when needed. *Caution*: I've seen pictures of the Tontec display without this switch. If this is important to you, I'd advise you to contact the seller before buying.
   
 Alternatively, I'd recommend getting
 
@@ -133,7 +133,7 @@ If there are any updates, you can install them via:
 
 ### Granting group write permissions for USB devices (for the power strip)
 
-In standard Raspbian installation, only root is allowed to write to USB devices. To avoid inflationary use of sudo, I created a udev rule that also gives write permissions to group usb. You can install this rule as follows:
+In a standard Raspbian installation, only root is allowed to write to USB devices. To avoid inflationary use of sudo, I created a udev rule that also gives write permissions to group usb. You can install this rule as follows:
 
     $ sudo cp /opt/klima/misc/99-usbgroup.rules /etc/udev/rules.d/
 
@@ -184,7 +184,7 @@ This should produce, after some time (< 3 minutes) output similar to this:
 
 This shows both sensors are transmitting measurements.
 
-Sensor 1: 25.7°C and 42 % relative humidity
+Sensor 1: 25.7°C and 42 % relative humidity  
 Sensor 2: 20.9°C and 70 % relative humidity
 
 Configuring the software
@@ -225,7 +225,7 @@ You can now adjust the parameters in `/opt/klima/bin/fanctl.py` to your need. Th
 
 - Tkellermin, Tkellermax, and Thysterese
 
-  Minimum and maximum temperature to prevent overheating or -cooling the cellar. If outside is colder than inside and lower then Tkellermin, the fans are only switched on if the inside temperature is at least Thysterese °C above Tkellermin. When the inside temperature reaches Tkellermin, the fans will be switched off. Tkellermax is handled correspondingly.
+  Minimum and maximum temperature to prevent overheating or -cooling the cellar. If outside is colder than inside and lower than Tkellermin, the fans are only switched on if the inside temperature is at least Thysterese °C above Tkellermin. When the inside temperature reaches Tkellermin, the fans will be switched off. Tkellermax is handled correspondingly.
 
 - DPmargin und DPhysterese
 
