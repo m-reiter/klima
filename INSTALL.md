@@ -76,7 +76,7 @@ raten, unbedingt notwendig ist das aber natürlich nicht.
 Voraussetzung
 -------------
 
-Ausgangspunkt dieser Anleitung ist ein fertig aufgesetzter, bootfähiger und ans Netzwerk angeschlossener Raspberry Pi mit einem aktuellen Raspbian Jessie oder Stretch.
+Ausgangspunkt dieser Anleitung ist ein fertig aufgesetzter, bootfähiger und ans Netzwerk angeschlossener Raspberry Pi mit einem aktuellen Raspbian Jessie.
 
 Die Einrichtung kann entweder über lokal angeschlossenes Display, Maus und Tastatur oder übers Netz per ssh erfolgen. Ein unter Windows verfügbarer ssh-client ist bspw. putty.
 
@@ -300,12 +300,6 @@ _Optional:_ Installation des Webservers nginx
 nginx sollte nun installiert sein.
 
 ### PHP installieren
-
-Unter stretch geht das per
-
-    $ sudo apt-get install php7.0-fpm php7.0-cgi php7.0-cli php7.0-common
-
-Jessie bringt noch PHP5 mit, daher lautet der Befehl hier
 
     $ sudo apt-get install php5-fpm php5-cgi php5-cli php5-common
 
