@@ -26,6 +26,8 @@ DEF:TPkellerMAX=$DATADIR/keller.rrd:DP:MAX \
 CDEF:TPkellerDIFF=TPkellerMAX,TPkellerMIN,- \
 DEF:On=$DATADIR/fan.rrd:on:AVERAGE \
 CDEF:Fan=On,100,* \
+CDEF:MINUS=NEGINF,aussen,POP \
+AREA:MINUS#0000ff10: \
 LINE0:aussenMIN#00000000: \
 AREA:aussenDIFF#00000030::STACK \
 LINE0:kellerMIN#00000000: \

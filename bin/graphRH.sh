@@ -21,6 +21,17 @@ DEF:on=$DATADIR/fan.rrd:on:AVERAGE \
 CDEF:AHPaussen=AHaussen,.2,/ \
 CDEF:AHPkeller=AHkeller,.2,/ \
 CDEF:Fan=on,AHPkeller,* \
+CDEF:TEN=10,aussen,POP \
+AREA:TEN: \
+AREA:TEN#00000010::STACK \
+AREA:TEN::STACK \
+AREA:TEN#00000010::STACK \
+AREA:TEN::STACK \
+AREA:TEN#00000010::STACK \
+AREA:TEN::STACK \
+AREA:TEN#00000010::STACK \
+AREA:TEN::STACK \
+AREA:TEN#00000010::STACK \
 AREA:Fan#00ff0080: \
 LINE2:aussen#000000:"Rel. Feuchte aussen" \
 LINE2:keller#ff0000:"Rel. Feuchte Keller" \

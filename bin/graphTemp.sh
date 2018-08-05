@@ -19,6 +19,8 @@ DEF:DWD=$GRAPHDIR/dwd.rrd:T:AVERAGE \
 DEF:on=$DATADIR/fan.rrd:on:AVERAGE \
 CDEF:Fan=on,Tkeller,* \
 AREA:Fan#00ff0080: \
+CDEF:MINUS=Taussen,NEGINF,MIN \
+AREA:MINUS#0000ff10: \
 LINE2:Taussen#000000:Aussen \
 LINE2:DWD#80808080:"DWD Westend" \
 LINE2:Tkeller#ff0000:Keller \
