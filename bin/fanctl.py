@@ -15,6 +15,7 @@ import logging
 import time
 import os
 import mqtt
+import importlib
 
 # directories
 BASEDIR='/opt/klima'
@@ -29,9 +30,10 @@ logging.basicConfig(filename=LOGDIR+'/fanctl.log',
 
 DRYRUN = False
 
-FANINPORT = "1"
-FANOUTPORT = "2"
-SISPMCTL="/usr/bin/sispmctl"
+# Welche Hardwaresteuerung wird für die Lüfter verwendet
+HARDWARE = "sispm"
+
+hardware = importlib.import_module(HARDWARE)
 
 # Parameter
 AHmargin = 1.5		# Mindestdifferenz absolute Feuchte (zum Einschalten)
@@ -82,21 +84,20 @@ def on(force=False):
     mqtt.publishFan(getvalues.getValues()['Fan'])
   else:
     if UseInterval and (LockInterval or not force):
-      FanRatio = str(round(float(IntervalOn)/(IntervalOn+IntervalOff),3))
-      logging.debug("Interval ventilation in use, setting ratio to "+FanRatio)
+      if hardware.supports_interval():
+        FanRatio = str(round(float(IntervalOn)/(IntervalOn+IntervalOff),3))
+        logging.debug("Interval ventilation in use, setting ratio to "+FanRatio)
+      else:
+        logging.debug("Interval ventilation requested but not supported by hardware.")
+        FanRatio = "1"
     else:
       FanRatio = "1"
     if getvalues.getValues()['Fan'] != FanRatio:
       if not DRYRUN:
-        if UseInterval and (LockInterval or not force):
-          subprocess.call([SISPMCTL,"-A "+FANINPORT])
-          subprocess.call([SISPMCTL,"-o "+FANINPORT])
-          subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter",str(IntervalOn),"--Ado","off","--Aafter",str(IntervalOff),"--Ado","on","--Aloop",str(IntervalOn+IntervalOff)])
-          subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on","--Aafter",str(IntervalOn-2),"--Ado","off","--Aloop",str(IntervalOn+IntervalOff)])
+        if hardware.supports_interval() and UseInterval and (LockInterval or not force):
+          hardware.interval()
         else:
-          subprocess.call([SISPMCTL,"-A "+FANINPORT])
-          subprocess.call([SISPMCTL,"-o "+FANINPORT])
-          subprocess.call([SISPMCTL,"-A",FANOUTPORT,"--Aafter","2","--Ado","on"])
+          hardware.on()
       logging.info("switched fan on.")
     rrdtool.update(DATADIR+'/fan.rrd','N:'+FanRatio)
     mqtt.publishFan(FanRatio)
@@ -111,13 +112,7 @@ def off(force=False):
     logging.debug("Current fan value is: %s" % getvalues.getValues()['Fan'])
     if getvalues.getValues()['Fan'] != "0":
       if not DRYRUN:
-        subprocess.call([SISPMCTL,"-A "+FANOUTPORT])
-        subprocess.call([SISPMCTL,"-f "+FANOUTPORT])
-        if force:
-          subprocess.call([SISPMCTL,"-A "+FANINPORT])
-          subprocess.call([SISPMCTL,"-f "+FANINPORT])
-        else:
-          subprocess.call([SISPMCTL,"-A",FANINPORT,"--Aafter","2","--Ado","off"])
+        hardware.off(force=force)
       logging.info("switched fan off.")
     rrdtool.update(DATADIR+'/fan.rrd','N:0')
     mqtt.publishFan(0)
