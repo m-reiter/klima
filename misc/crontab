@@ -1,5 +1,4 @@
 BASEDIR=/opt/klima
-@reboot $BASEDIR/bin/checkrecsensors.sh
 @reboot $BASEDIR/bin/makedwd.sh
 @reboot $BASEDIR/bin/fanctl.py cron > /dev/null
 */3 * * * * $BASEDIR/bin/fanctl.py cron > /dev/null

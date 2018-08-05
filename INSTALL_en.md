@@ -237,6 +237,25 @@ You can now adjust the parameters in `/opt/klima/bin/fanctl.py` to your need. Th
   
   One remark: Naturally, if you use interval ventilation, the fans will at times stand still although they are shown as running in the GUI or web interface. To avoid confusion, I would therefore recommend not to use interval ventilation until you're sure that the system is working correctly.
 
+#### Installation of systemd service unit for recording sensor readings
+
+First you have to create a directory for systemd user service units:
+
+    $ mkdir -p ~/.config/systemd/user
+
+Now copy the service unit there:
+
+    $ cp /opt/klima/misc/recsensors.service ~/.config/systemd/user/
+
+Next, allow for user klima to have services running even when not logged in:
+
+    $ sudo loginctl enable-linger klima
+
+and activate the service unit:
+
+    $ systemctl --user enable recsensors
+
+
 #### Configuring a cron job and starting the system
 
 If you now create a cron job for user klima with the following commands and reboot the Pi, the system should already be running.

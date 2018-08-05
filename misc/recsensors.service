@@ -1,0 +1,9 @@
+[Unit]
+Description=Aufnahme der Sensordaten vom USB-WDE1 für feuchtegesteuerte Kellerlüftung
+
+[Service]
+ExecStart=/opt/klima/bin/recsensors.py
+Restart=always
+
+[Install]
+WantedBy=default.target
