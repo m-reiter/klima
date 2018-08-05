@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-""" Dieses Skript soll die Lüftersteuerung übernehmen
-
-es wird sowohl per crontab als auch aus anderen Skripten aufgerufen und
-kann auch interaktiv gestartet werden.
+""" Hardwaresteuerung der Lüfter per sispmctl (USB-Steckdosenleiste)
 """
 
 import subprocess
