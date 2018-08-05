@@ -95,7 +95,7 @@ def on(force=False):
     if getvalues.getValues()['Fan'] != FanRatio:
       if not DRYRUN:
         if hardware.supports_interval() and UseInterval and (LockInterval or not force):
-          hardware.interval()
+          hardware.interval(IntervalOn,IntervalOff)
         else:
           hardware.on()
       logging.info("switched fan on.")
