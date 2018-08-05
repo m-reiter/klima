@@ -243,6 +243,24 @@ Anschließend kannst Du in der Datei `/opt/klima/bin/fanctl.py` die Parameter de
 
   Noch eine Anmerkung hierzu: Naturgemäß kann es bei der Verwendung der Intervalllüftung dazu kommen, daß der Lüfter steht, obwohl im Webinterface bzw. auf dem Display angezeigt wird, daß er eingeschaltet ist. Ich würde daher empfehlen, anfangs die Intervalllüftung auszuschalten, bis Du Dir sicher bist, daß das System korrekt funktioniert.
 
+#### Installation der systemd service unit zur Aufnahme der Sensorwerte
+
+Zuerst musst Du ein Verzeichnis für systemd user service units anlegen:
+
+    $ mkdir -p ~/.config/systemd/user
+
+und anschließend die service unit dorthin kopieren:
+
+    $ cp /opt/klima/misc/recsensors.service ~/.config/systemd/user/
+
+Dann musst Du noch dem Nutzer klima erlauben, auch dann services laufen zu haben, wenn er nicht eingeloggt ist:
+
+    $ sudo loginctl enable-linger klima
+
+und die service unit aktivieren:
+
+    $ systemctl --user enable recsensors
+
 #### Einrichten des cronjobs und Start des Systems
 
 Wenn Du jetzt mit den folgenden Befehlen den cronjob für den Nutzer klima einrichtest und anschließend den Raspberry Pi neu startest, sollte das System bereits laufen.
