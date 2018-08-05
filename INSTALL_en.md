@@ -74,7 +74,7 @@ although that's of course not strictly necessary.
 Requirements
 ------------
 
-Starting point for these instructions is a fully installed, booting Raspberry Pi running a recent version of Raspbian Jessie and connected to the network. 
+Starting point for these instructions is a fully installed, booting Raspberry Pi running a recent version of Raspbian Stretch and connected to the network. 
 
 Preparing the system
 --------------------
@@ -294,7 +294,7 @@ _Optional:_ Installation of the nginx web server
 
 ### install PHP
 
-    $ sudo apt-get install php5-fpm php5-cgi php5-cli php5-common
+    $ sudo apt-get install php7.0-fpm php7.0-cgi php7.0-cli php7.0-common
 
 ### Configuring nginx for the cellar ventilation web interface
 
