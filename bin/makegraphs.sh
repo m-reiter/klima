@@ -7,6 +7,8 @@ for d in 24h 1w 1M
 do
   $BINDIR/graphTemp.sh $d
   $BINDIR/graphRH.sh $d
+  $BINDIR/graphTemp_mqtt.sh $d
+  $BINDIR/graphRH_mqtt.sh $d
 done
 
 # Tagesmittel
