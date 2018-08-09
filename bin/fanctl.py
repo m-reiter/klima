@@ -30,6 +30,12 @@ logging.basicConfig(filename=LOGDIR+'/fanctl.log',
 
 DRYRUN = False
 
+# On board LEDs zur Signalisierung des Zustands verwenden?
+USELEDS = False
+if USELEDS:
+  SUDO = "/usr/bin/sudo"
+  LEDCMD = "/opt/klima/bin/leds.py"
+
 # Welche Hardwaresteuerung wird für die Lüfter verwendet
 HARDWARE = "sispm"
 
@@ -94,6 +100,8 @@ def on(force=False):
       FanRatio = "1"
     if getvalues.getValues()['Fan'] != FanRatio:
       if not DRYRUN:
+        if USELEDS:
+          subprocess.call(SUDO,LEDCMD,"green")
         if hardware.supports_interval() and UseInterval and (LockInterval or not force):
           hardware.interval(IntervalOn,IntervalOff)
         else:
@@ -112,6 +120,8 @@ def off(force=False):
     logging.debug("Current fan value is: %s" % getvalues.getValues()['Fan'])
     if getvalues.getValues()['Fan'] != "0":
       if not DRYRUN:
+        if USELEDS:
+          subprocess.call(SUDO,LEDCMD,"red")
         hardware.off(force=force)
       logging.info("switched fan off.")
     rrdtool.update(DATADIR+'/fan.rrd','N:0')
