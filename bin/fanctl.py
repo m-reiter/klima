@@ -101,7 +101,7 @@ def on(force=False):
     if getvalues.getValues()['Fan'] != FanRatio:
       if not DRYRUN:
         if USELEDS:
-          subprocess.call(SUDO,LEDCMD,"green")
+          subprocess.call([SUDO,LEDCMD,"green"])
         if hardware.supports_interval() and UseInterval and (LockInterval or not force):
           hardware.interval(IntervalOn,IntervalOff)
         else:
@@ -121,7 +121,7 @@ def off(force=False):
     if getvalues.getValues()['Fan'] != "0":
       if not DRYRUN:
         if USELEDS:
-          subprocess.call(SUDO,LEDCMD,"red")
+          subprocess.call([SUDO,LEDCMD,"red"])
         hardware.off(force=force)
       logging.info("switched fan off.")
     rrdtool.update(DATADIR+'/fan.rrd','N:0')
