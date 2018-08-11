@@ -25,9 +25,9 @@ def red():
       red.write("1")
   if canswitch(GREEN):
     with open(GREEN+"brightness","w") as green:
-      green.write("2")
+      green.write("0")
 
-if sys.argv[0] == "green":
+if sys.argv[1] == "green":
   green()
-if sys.argv[0] == "red":
+if sys.argv[1] == "red":
   red()
