@@ -8,6 +8,13 @@ BASEDIR='/opt/klima'
 GRAPHDIR=BASEDIR+'/graphics'
 HEARTBEAT=GRAPHDIR+'/controller.heartbeat'
 
+# Liste möglicher deutscher locales (für Datumsanzeige)
+LOCALES = [ "de_DE",
+            "de_DE@euro",
+            "de_DE.iso88591",
+            "de_DE.iso885915@euro",
+            "de_DE.utf8" ]
+
 # green
 green = "#00b000"
 
@@ -20,7 +27,12 @@ import locale
 import os
 import fractions
 
-locale.setlocale(locale.LC_ALL,'de_DE')
+for l in LOCALES:
+  try:
+    locale.setlocale(locale.LC_ALL,l)
+    break
+  except locale.Error:
+    pass
 
 class LockDialog(Toplevel):
 
